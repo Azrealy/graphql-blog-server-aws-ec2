@@ -30,7 +30,11 @@
     "graphql": "^14.0.2",
     "graphql-resolvers": "^0.2.2",
     "jsonwebtoken": "^8.3.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
     "pg": "^7.4.3",
+    "nodemon": "^1.18.4",
     "sequelize": "^4.38.1",
     "sqlite3": "^4.0.2",
     "uuid": "^3.3.2"
