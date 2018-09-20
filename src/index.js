@@ -5,6 +5,7 @@ import { ApolloServer, AuthenticationError } from 'apollo-server-express';
 import DataLoader from 'dataloader';
 import schema from './schema';
 import resolvers from './resolvers';
+import cors from 'cors';
 import http from 'http';
 import loaders from './loaders';
 import models, { sequelize } from './models';
