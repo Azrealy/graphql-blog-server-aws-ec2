@@ -16,7 +16,7 @@ const getMe = async (req) => {
 
     if (token) {
         try {
-            return await jwt.verify(token, process.env.SECRETE)
+          return await jwt.verify(token, process.env.SECRET)
         } catch (e) {
             throw new AuthenticationError(
                 'Your session expired, Sign in again.'
@@ -51,7 +51,7 @@ const server = new ApolloServer({
         return {
             models,
             me: me,
-            secret: process.env.SECRETE,
+          secret: process.env.SECRET,
             user: new DataLoader(keys =>
                 loaders.user.batchUsers(keys, models)),
         }
@@ -68,13 +68,15 @@ server.installSubscriptionHandlers(httpServer)
 const eraseDatabaseOnSync = true;
 
 const isTest = !!process.env.TEST_DATABASE
+const isProduction = !!process.env.DATABASE_URL;
+const port = process.env.PORT || 8000;
 
-sequelize.sync({ force: isTest }).then(async () =>{
-  if (isTest) {
+sequelize.sync({ force: isTest || isProduction }).then(async () =>{
+  if (isTest || isProduction) {
       createUsersWithMessages(new Date());
     }
-  httpServer.listen({ port: 8000 }, () => {
-  console.log('Apollo Server on http://localhost:8000/graphql');
+  httpServer.listen({ port }, () => {
+  console.log('Apollo Server on http://localhost:${port}/graphql');
   })
 });
 const createUsersWithMessages = async (date) => {
