@@ -10,7 +10,7 @@ import loaders from './loaders';
 import models, { sequelize } from './models';
 
 const app = express();
-
+app.use(cors())
 const getMe = async (req) => {
     const token = req.headers['x-token']
 
@@ -67,7 +67,7 @@ server.installSubscriptionHandlers(httpServer)
 
 const eraseDatabaseOnSync = true;
 
-const isTest = !!process.env.TEST_DATABASE
+const isTest = !!process.env.TEST_DATABASE;
 const isProduction = !!process.env.DATABASE_URL;
 const port = process.env.PORT || 8000;
 
