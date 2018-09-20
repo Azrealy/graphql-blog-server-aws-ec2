@@ -31,6 +31,7 @@ const getMe = async req => {
 };
 
 const server = new ApolloServer({
+  introspection: true,
   typeDefs: schema,
   resolvers,
   formatError: error => {
@@ -94,9 +95,9 @@ sequelize.sync({ force: isTest || isProduction }).then(async () => {
 const createUsersWithMessages = async date => {
   await models.User.create(
     {
-      username: 'rwieruch',
-      email: 'hello@robin.com',
-      password: 'rwieruch',
+      username: 'k-fang',
+      email: 'k-fang@yahoo.com',
+      password: 'k-fang',
       role: 'ADMIN',
       messages: [
         {
@@ -112,9 +113,9 @@ const createUsersWithMessages = async date => {
 
   await models.User.create(
     {
-      username: 'ddavids',
-      email: 'hello@david.com',
-      password: 'ddavids',
+      username: 'alice',
+      email: 'alice@david.com',
+      password: 'alice',
       messages: [
         {
           text: 'Happy to release a GraphQL in React tutorial',
