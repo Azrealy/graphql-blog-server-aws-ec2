@@ -11,8 +11,7 @@ if (process.env.DATABASE_URL) {
   process.env.DATABASE_USER,
   process.env.DATABASE_PASSWORD,
   {
-    dialect: 'sqlite',
-    storage: '/tmp/database3.sqlite',
+    dialect: 'postgres',
   })
 }
 

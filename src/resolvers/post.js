@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-const date = new Date()
+let date = new Date()
 export default {
     Query: {
         posts: async (parent, { cursor, limit = 10 }, { models }) => {
@@ -53,6 +53,26 @@ export default {
                 }
               )
             return post
+        },
+        deletePost: async (parent, { id }, { models }) => {
+            return await models.Post.destroy({  where: { id } })
+        },
+        updatePost: async (parent, { id, title, description, text, tags}, { models }) => {
+            const update = await models.Post.update({ 
+                title,
+                description,
+                text,
+                tags: tags.map((tag) => ({
+                    text: tag,
+                    createdAt: date.setSeconds(date.getSeconds() + 1),
+                }))
+             }, { where: { id } })
+
+            if (update[0] === 1) {
+                return true
+            } else {
+                return false
+            }
         }
     },
     Post: {

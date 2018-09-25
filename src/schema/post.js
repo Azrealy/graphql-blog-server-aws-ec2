@@ -13,6 +13,17 @@ export default gql`
             text: String!,
             tags: [String!]!
         ): Post!
+        deletePost(
+            id: ID!
+        ): Boolean!
+        updatePost(
+            id: ID!,
+            title: String!,
+            description: String!,
+            text: String!,
+            tags: [String!]!
+        ): Boolean!
+
     }
 
     type PostConnection {
