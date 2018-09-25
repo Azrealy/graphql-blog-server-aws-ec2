@@ -1,4 +1,6 @@
 import Sequelize from 'sequelize';
+
+const date = new Date()
 export default {
     Query: {
         posts: async (parent, { cursor, limit = 10 }, { models }) => {
@@ -33,6 +35,26 @@ export default {
         }
     },
 
+    Mutation: {
+        createPost: async (parent, { title, description, text, tags }, { models } ) => {
+            const post = await models.Post.create(
+                {
+                  title: title,
+                  description: description,
+                  text: text,
+                  createdAt: date.setSeconds(date.getSeconds() + 1),
+                  tags: tags.map((tag)  => ({
+                     text: tag,
+                     createdAt: date.setSeconds(date.getSeconds() + 1),
+                  }))
+                },
+                {
+                  include: [models.Tag],
+                }
+              )
+            return post
+        }
+    },
     Post: {
         tags: async (post, args, { models }) => {
             return await models.Tag.findAll({

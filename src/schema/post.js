@@ -6,6 +6,14 @@ export default gql`
         post(id: ID!): Post!
     }
 
+    extend type Mutation {
+        createPost(
+            title: String!,
+            description: String!,
+            text: String!,
+            tags: [String!]!
+        ): Post!
+    }
 
     type PostConnection {
         edges: [Post!]!
