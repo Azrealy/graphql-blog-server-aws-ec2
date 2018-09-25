@@ -24,12 +24,13 @@ export default {
         });
         const hasNextPage = messages.length > limit
         const edges = hasNextPage ? messages.slice(0, -1) : messages
-  
+
         return {
           edges: edges,
           pageInfo: {
             hasNextPage: hasNextPage,
-            endCursor: messages[messages.length - 1].createdAt,
+            endCursor: edges[edges.length - 1].createdAt,
+
           },
         };
       },

@@ -11,14 +11,16 @@ if (process.env.DATABASE_URL) {
   process.env.DATABASE_USER,
   process.env.DATABASE_PASSWORD,
   {
-    // sqlite! now!
-    dialect: 'postgres',
+    dialect: 'sqlite',
+    storage: '/tmp/database3.sqlite',
   })
 }
 
 const models = {
     User: sequelize.import('./user'),
     Message: sequelize.import('./message'),
+    Tag: sequelize.import('./tag.js'),
+    Post: sequelize.import('./post.js')
   };
 
 Object.keys(models).forEach(key => {
