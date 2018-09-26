@@ -2,10 +2,13 @@ import Sequelize from 'sequelize';
 
 let sequelize;
 if (process.env.DATABASE_URL) {
+  // Production env
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres'
   })
-} else {
+} 
+if (process.env.DATABASE) {
+  // Postgres env
  sequelize = new Sequelize(
   process.env.TEST_DATABASE || process.env.DATABASE ,
   process.env.DATABASE_USER,
@@ -13,6 +16,9 @@ if (process.env.DATABASE_URL) {
   {
     dialect: 'postgres',
   })
+} else {
+  // Sqlite env
+  sequelize = new Sequelize('sqlite:/tmp/sqlite-db.db')
 }
 
 const models = {

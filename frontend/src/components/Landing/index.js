@@ -1,6 +1,7 @@
 import * as React from "react";
 import ReactMde, { ReactMdeTypes, DraftUtil } from "react-mde";
 import * as Showdown from "showdown";
+import withSession from '../Session/withSession';
 
 export interface ReactMdeDemoProps {}
 
@@ -58,3 +59,5 @@ export class ReactMdeDemo extends React.Component<
     );
   }
 }
+
+export default withSession(ReactMdeDemo);

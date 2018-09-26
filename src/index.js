@@ -31,7 +31,6 @@ const getMe = async req => {
 };
 
 const server = new ApolloServer({
-  introspection: true,
   typeDefs: schema,
   resolvers,
   formatError: error => {
@@ -79,7 +78,7 @@ const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
 
 const isTest = !!process.env.TEST_DATABASE;
-const isProduction = !!process.env.DATABASE_URL;
+const isProduction = !!process.env.DATABASE_URL || !process.env.DATABASE;
 const port = process.env.PORT || 8000;
 
 sequelize.sync({ force: isTest || isProduction }).then(async () => {
@@ -141,7 +140,7 @@ const createUsersWithMessages = async date => {
   await models.User.create(
     {
       username: 'k-fang',
-      email: 'k-fang@yahoo.com',
+      email: 'k-fang@yahoo.co.jp',
       password: '1234qwer',
       role: 'ADMIN',
       messages: [
