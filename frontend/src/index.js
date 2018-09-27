@@ -41,12 +41,14 @@ const httpLink = new HttpLink({
 
 // Set token header before every Link.
 const authLink = new ApolloLink((operation, forward) => {
-  operation.setContext(({ headers = {} }) => ({
+  operation.setContext(({ headers = {} }) => {
+    const token = localStorage.getItem('token')
+    return {
     headers: {
       ...headers,
-      'x-token': localStorage.getItem('token'),
+      'x-token': token? token: '' ,
     },
-  }));
+  }});
 
   return forward(operation);
 });
@@ -83,9 +85,7 @@ const client = new ApolloClient({
 
 const Index = () => (
   <ApolloProvider client={client} >
-  <div className="container">
     <App />
-  </div>
   </ApolloProvider>
 );
 

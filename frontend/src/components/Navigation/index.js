@@ -23,14 +23,11 @@ const NavigationAuth = ({ session }) => (
     <li>
     <Link to={routes.ACCOUNT}>Account ({session.me.username})</Link>
     </li>
-    <li>
-        <Link to={routes.LANDING}>Landing</Link>
-    </li>
     {session &&
     session.me &&
     session.me.role === 'ADMIN' && (
         <li>
-        <Link to={routes.ADMIN}>Admin</Link>
+        <Link to={routes.CONTENT_MANAGER}>Content Manager </Link>
         </li>
     )}
     <li>
