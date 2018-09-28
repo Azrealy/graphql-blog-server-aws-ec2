@@ -4,7 +4,7 @@ export const GET_TAGS_LIST = gql`
   query {
     tags {
         id
-        text
+        name
     }
   }
 `

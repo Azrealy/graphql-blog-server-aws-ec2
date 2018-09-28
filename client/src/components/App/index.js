@@ -29,7 +29,7 @@ const App = ({ session, refetch }) => (
       <Route
         exact
         path={routes.CONTENT_MANAGER}
-        component={() => <ContentManagerPage />}
+        component={() => <ContentManagerPage refetch={refetch}/>}
         />
     </div>
   </Router>

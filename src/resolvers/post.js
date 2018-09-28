@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-const date = new Date()
+
 export default {
     Query: {
         posts: async (parent, { cursor, limit = 10 }, { models }) => {
@@ -36,6 +36,7 @@ export default {
 
     Mutation: {
         createPost: async (parent, { title, description, content, tags }, { models } ) => {
+            const date = new Date()
             const post = await models.Post.create({
                 title: title,
                 description: description,

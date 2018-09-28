@@ -1,5 +1,6 @@
 import React from 'react'
 import { Query } from "react-apollo";
+import { withRouter } from 'react-router-dom';
 
 import ErrorMessage from '../Error';
 import Loading from '../Loading';
@@ -7,7 +8,7 @@ import { GET_TAGS_LIST } from "./queries";
 import Editor from "../Editor";
 import withAuthorization from "../Session/withAuthorization";
 
-const ContentManager = () => (
+const ContentManager = ({history}) => (
   <div>
     <Query
       query={GET_TAGS_LIST}
@@ -24,7 +25,7 @@ const ContentManager = () => (
             return <ErrorMessage error={error} />
         }
 
-        return <Editor tags={tags}/>
+        return <Editor tags={tags} history={history}/>
       }}
 
     </Query>
@@ -33,4 +34,4 @@ const ContentManager = () => (
 
 export default withAuthorization(
     session => session && session.me && session.me.role === 'ADMIN',
-  )(ContentManager)
+  )(withRouter(ContentManager))

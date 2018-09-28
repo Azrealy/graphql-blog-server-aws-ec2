@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 const PostItem = ({
     title,
     description,
-    text,
+    content,
     createdAt,
     tags,
 }) => (
@@ -15,8 +15,8 @@ const PostItem = ({
     </h2>
 
     <h3>{description}</h3>
-    <ReactMarkdown source={text}/>
-    {tags.map(({ text }) => (<p> {text} </p>))}
+    <ReactMarkdown source={content}/>
+    {tags.map(({ id, name }) => (<p key={id}> {name} </p>))}
   </div>
 )
 

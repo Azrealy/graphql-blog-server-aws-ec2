@@ -1,35 +1,31 @@
 import * as React from "react";
 import ReactMde, { DraftUtil } from "react-mde";
 import * as Showdown from "showdown";
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
+import POST_FRAGMENT from "../../constants/fragments";
+import * as R from "ramda";
 
+import * as routes from '../../constants/routes';
 import ErrorMessage from '../Error';
 
 const CREATE_POST = gql`
-mutation($title: String!, $description: String!, $text: String!, $tags: [String!]!){
-    createPost(title: $title, description: $description, text: $text, tags: $tags){
-      id
-      title
-      description
-      tags {
-        id
-        text
-      }
-      createdAt
+mutation($title: String!, $description: String!, $content: String!, $tags: [ID!]!){
+    createPost(title: $title, description: $description, content: $content, tags: $tags){
+      ...postContent
     }
-  }`
+}
+${POST_FRAGMENT}
+`
 
 const INITIAL_STATE = {
   title: "",
   description: "",
-  tags: []
+  tagIds: []
 };
 
 const styles = theme => ({
@@ -81,7 +77,8 @@ export class ReactMdeDemo extends React.Component {
     createPost().then(async ({ data }) => {
       this.setState({ ...INITIAL_STATE });
       this.setState({ mdeState: { markdown: '' }})
-      console.log(data.createPost)
+
+      this.props.history.push(routes.LANDING)
     });
 
     event.preventDefault();
@@ -89,9 +86,9 @@ export class ReactMdeDemo extends React.Component {
 
   handleTagChange = event => {
     if (event.target.checked) {
-      this.setState({ tags: [...this.state.tags, event.target.value]})
+      this.setState({ tagIds: [...this.state.tagIds, event.target.value]})
     } else {
-      this.setState({ tags: this.state.tags.filter(value => value !== event.target.value)})
+      this.setState({ tagIds: this.state.tagIds.filter(id => id !== event.target.value)})
     }
   };
 
@@ -100,16 +97,43 @@ export class ReactMdeDemo extends React.Component {
   };
 
 
+  addPost = (client, {data: { createPost }}) => {
+    const query  = gql`
+        query PostQuery {
+          posts {
+            edges {
+            ...postContent
+            __typename
+            }
+          }
+      }
+      ${POST_FRAGMENT}
+    `
+    const posts = client.readQuery({ query  })
+    client.writeQuery({
+      query,
+      data: {
+        posts: {
+          edges: R.append(posts, createPost),
+          __typename: 'PostConnection'
+        } 
+      },
+    })
+  }
+
   render() {
     const { classes } = this.props
-    const { title, description, tags } = this.state
+    const { title, description, tagIds } = this.state
     const { markdown } = this.state.mdeState
     console.log(this.state)
-    const isInvalid = title === '' || description === '' || markdown === '' || tags.length === 0;
+    const isInvalid = title === '' || description === '' || markdown === '' || tagIds.length === 0;
     return (
       
       <div>
-        <Mutation mutation={CREATE_POST} variables={{ title, description, text: markdown, tags }}>
+        <Mutation 
+          mutation={CREATE_POST} 
+          variables={{ title, description, content: markdown, tags: tagIds }}
+          update={this.addPost}>
           {(createPost, { data, loading, error }) => (
             <form onSubmit={event => this.onSubmit(event, createPost)} >
             <div className={classes.container}>
@@ -142,16 +166,16 @@ export class ReactMdeDemo extends React.Component {
               <FormControlLabel
                 control={
                   <Checkbox
-                    value={tag.text}
+                    value={tag.id}
                     onChange={(e) => this.handleTagChange(e)}
                     color="primary"
                   />
                 }
-                  label={tag.text}
+                  label={tag.name}
                 />
               </div>
             ))}
-            <h3>Text</h3>
+            <h3>Content</h3>
             <ReactMde
               layout="horizontal"
               onChange={this.onTextChange}

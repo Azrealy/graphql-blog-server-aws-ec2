@@ -26,9 +26,6 @@ const post = (sequelize, DataTypes) => {
                 msg: 'Content can not be empty'
             }
         },
-      },
-      createdAt: {
-        type: DataTypes.INTEGER ,
       }
     });
   
