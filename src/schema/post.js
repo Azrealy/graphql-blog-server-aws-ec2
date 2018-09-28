@@ -1,6 +1,9 @@
 import { gql } from 'apollo-server-express';
 
 export default gql`
+    
+    scalar DateTime
+
     extend type Query {
         posts(cursor: String, limit: Int): PostConnection!
         post(id: ID!): Post!
@@ -10,8 +13,8 @@ export default gql`
         createPost(
             title: String!,
             description: String!,
-            text: String!,
-            tags: [String!]!
+            content: String!,
+            tags: [ID!]!
         ): Post!
         deletePost(
             id: ID!
@@ -20,9 +23,9 @@ export default gql`
             id: ID!,
             title: String!,
             description: String!,
-            text: String!,
-            tags: [String!]!
-        ): Boolean!
+            content: String!,
+            tags: [ID!]!
+        ): Post!
 
     }
 
@@ -40,8 +43,8 @@ export default gql`
         id: ID!
         title: String!
         description: String!
-        tags: [Tag!]
-        text: String!
+        tags: [Tag!]!
+        content: String!
         createdAt: String!
     }
 `

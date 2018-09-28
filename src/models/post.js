@@ -19,21 +19,21 @@ const post = (sequelize, DataTypes) => {
         }
       },
 
-      text: {
-        type: DataTypes.STRING(1234) ,
+      content: {
+        type: DataTypes.STRING(2000) ,
         validate: { notEmpty: {
                 args:true,
-                msg: 'Text can not be empty'
+                msg: 'Content can not be empty'
             }
         },
       },
       createdAt: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER ,
       }
     });
   
     Post.associate = models => {
-      Post.hasMany(models.Tag, { onDelete: 'CASCADE' });
+      Post.belongsToMany(models.Tag, { through: 'post_tag' });
     };
   
     return Post;
