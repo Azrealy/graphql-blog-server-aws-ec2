@@ -7,11 +7,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import POST_FRAGMENT from "../../constants/fragments";
 import * as R from "ramda";
-
+import AddTag from "./addTagButton";
+import POST_FRAGMENT from "../../constants/fragments";
 import * as routes from '../../constants/routes';
 import ErrorMessage from '../Error';
+
 
 const CREATE_POST = gql`
 mutation($title: String!, $description: String!, $content: String!, $tags: [ID!]!){
@@ -48,7 +49,7 @@ const styles = theme => ({
   },
 });
 
-export class ReactMdeDemo extends React.Component {
+class ReactMdeDemo extends React.Component {
 
   constructor(props) {
     super(props);
@@ -175,6 +176,7 @@ export class ReactMdeDemo extends React.Component {
                 />
               </div>
             ))}
+            <AddTag />
             <h3>Content</h3>
             <ReactMde
               layout="horizontal"

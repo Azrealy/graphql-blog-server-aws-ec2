@@ -24,9 +24,6 @@ A full-fledged Apollo Server 2 with Apollo Client 2 blog app with React, Express
 ## Enhancement
 
 * Implement the tag create mutation.
-* Add tags field to include posts id.
-* Markdown editor has the limit of input words. (Implement the more flexible editor of markdown.)
-* The landing page doesn't refetch the posts after submit mutation query to the server.
 * Integrate the UI repository.
 
 ### Client
