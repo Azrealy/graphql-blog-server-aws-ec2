@@ -17,7 +17,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 const httpLink = new HttpLink({
-  uri: 'http://192.168.10.10:8000/graphql',
+  uri: 'http://localhost:8000/graphql',
 })
 
 /* const wsLink = new WebSocketLink({

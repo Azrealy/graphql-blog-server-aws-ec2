@@ -176,7 +176,7 @@ class ReactMdeDemo extends React.Component {
                 />
               </div>
             ))}
-            <AddTag />
+              <AddTag refetch={this.props.refetch}/>
             <h3>Content</h3>
             <ReactMde
               layout="horizontal"

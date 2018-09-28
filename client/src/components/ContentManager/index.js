@@ -14,7 +14,7 @@ const ContentManager = ({history}) => (
       query={GET_TAGS_LIST}
       notifyOnNetworkStatusChange={true}
       >
-      {({data, loading, error}) => {
+      {({ data, loading, error, refetch}) => {
         const { tags } = data;
 
         if (loading && !tags) {
@@ -25,7 +25,7 @@ const ContentManager = ({history}) => (
             return <ErrorMessage error={error} />
         }
 
-        return <Editor tags={tags} history={history}/>
+        return <Editor tags={tags} history={history} refetch={refetch}/>
       }}
 
     </Query>
