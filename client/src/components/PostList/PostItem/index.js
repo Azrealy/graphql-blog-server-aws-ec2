@@ -1,8 +1,9 @@
 import React from 'react';
-import Link from '../../Link';
+import { Link } from 'react-router-dom'
 import ReactMarkdown from "react-markdown";
 
 const PostItem = ({
+    id,
     title,
     description,
     content,
@@ -11,7 +12,7 @@ const PostItem = ({
 }) => (
   <div>
     <h2>
-      <Link href={"#"}>{title}</Link>
+        <Link to={`/post/${id}`}>{title}</Link>
     </h2>
 
     <h3>{description}</h3>

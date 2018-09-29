@@ -6,6 +6,7 @@ import LandingPage from '../Landing';
 import * as routes from '../../constants/routes';
 import history from '../../constants/history';
 import Navigation from '../Navigation';
+import PostPage from "../Post";
 import withSession from '../Session/withSession';
 import ContentManagerPage from "../ContentManager";
 
@@ -31,6 +32,9 @@ const App = ({ session, refetch }) => (
         path={routes.CONTENT_MANAGER}
         component={() => <ContentManagerPage refetch={refetch}/>}
         />
+      <Route 
+        path='/post/:number' 
+        component={PostPage} />
     </div>
   </Router>
 )
