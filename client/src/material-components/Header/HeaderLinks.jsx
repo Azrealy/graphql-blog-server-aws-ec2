@@ -14,9 +14,9 @@ import { Apps, AccountCircle } from "@material-ui/icons";
 // core components
 import CustomDropdown from "../CustomDropdown/CustomDropdown.jsx";
 import Button from "../CustomButtons/Button.jsx";
-
+import { ApolloConsumer } from 'react-apollo';
 import headerLinksStyle from "../../assets/jss/material-kit-react/components/headerLinksStyle.jsx";
-
+import { signOut } from "../../components/SignOut";
 import withSession from "../../components/Session/withSession";
 
 const HeaderLinks = ({ session }) => (
@@ -139,13 +139,15 @@ function HeaderLinksAfterAuth({ ...props }) {
           )
       }
       <ListItem className={classes.listItem}>
+        <ApolloConsumer>
+          {client => (
         <Button
           className={classes.navLink}
-          onClick={e => e.preventDefault()}
-          color="transparent"
-        >
-          <AccountCircle className={classes.icons} /><Link to="/account" className={classes.navIconLink}></Link>
-        </Button>
+          onClick = {() => signOut(client)}
+          color="transparent">
+          Logout
+        </Button>)}
+        </ApolloConsumer>
       </ListItem>
     </List>
   );

@@ -31,7 +31,7 @@ const App = ({ session, refetch }) => (
 
       <Route
         exact
-        path={routes.SIGN_IN}
+        path={routes.LOGIN}
         component={() => <SignInPage refetch={refetch} />}
         />
       <Route

@@ -1,7 +1,7 @@
 import { cardTitle, title } from "../../../material-kit-react.jsx";
 import imagesStyle from "../../imagesStyles.jsx";
 
-const teamStyle = {
+const postItemStyle = {
   section: {
     padding: "60px 0",
     textAlign: "left"
@@ -60,4 +60,4 @@ const teamStyle = {
   }
 };
 
-export default teamStyle;
+export default postItemStyle;

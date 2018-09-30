@@ -35,7 +35,7 @@ import gql from 'graphql-tag';
 
 import ErrorMessage from '../../components/Error';
 
-const SIGN_IN = gql`
+const LOGIN = gql`
   mutation($login: String!, $password: String!) {
     signIn(login: $login, password: $password) {
       token
@@ -87,7 +87,7 @@ class LoginPage extends React.Component {
     const isInvalid = password === '' || login === '';
     const { classes, ...rest } = this.props;
     return (
-    <Mutation mutation={SIGN_IN} variables={{ login, password }}>
+      <Mutation mutation={LOGIN} variables={{ login, password }}>
     {(signIn, {data, loading, error}) => (
         <div>
         <Header

@@ -39,7 +39,7 @@ const NavigationAuth = ({ session }) => (
 const NavigationNonAuth = () => (
     <ul>
       <li>
-        <Link to={routes.SIGN_IN}>Sign In</Link>
+        <Link to={routes.LOGIN}>Sign In</Link>
       </li>
     </ul>
   );
