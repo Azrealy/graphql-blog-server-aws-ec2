@@ -3,6 +3,7 @@ import { Router, Route } from 'react-router-dom';
 
 import SignInPage from "../SignIn";
 import LandingPage from '../Landing';
+import PostTablePage from "../PostTable";
 import * as routes from '../../constants/routes';
 import history from '../../constants/history';
 import Navigation from '../Navigation';
@@ -24,6 +25,12 @@ const App = ({ session, refetch }) => (
 
       <Route
         exact
+        path={routes.POSTS}
+        component={() => <PostTablePage />}
+      />
+
+      <Route
+        exact
         path={routes.SIGN_IN}
         component={() => <SignInPage refetch={refetch} />}
         />
@@ -33,7 +40,7 @@ const App = ({ session, refetch }) => (
         component={() => <ContentManagerPage refetch={refetch}/>}
         />
       <Route 
-        path='/post/:number' 
+        path='/posts/:number' 
         component={PostPage} />
     </div>
   </Router>

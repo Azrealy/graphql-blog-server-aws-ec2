@@ -1,4 +1,5 @@
 export const LANDING = '/';
+export const POSTS = '/posts';
 export const SIGN_UP = '/signup';
 export const SIGN_IN = '/signin';
 export const CONTENT_MANAGER = '/content-manager';

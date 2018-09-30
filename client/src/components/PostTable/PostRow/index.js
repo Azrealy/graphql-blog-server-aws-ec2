@@ -33,7 +33,15 @@ class PostRow extends React.Component {
 
 
   render() {
-    const { id, title, description, createdAt, content, tags, classes } = this.props.post
+    const { 
+      id, 
+      title, 
+      description, 
+      createdAt, 
+      content, 
+      tags, 
+      classes } = this.props.post
+    const data = new Date(Number(createdAt))
     return (
       <TableRow hover key={id}>
         <TableCell>
@@ -57,7 +65,7 @@ class PostRow extends React.Component {
               },
               preventOverflow: {
                 enabled: true,
-                boundariesElement: 'viewport',
+                boundariesElement: 'window',
               },
             }}
           >
@@ -68,16 +76,16 @@ class PostRow extends React.Component {
                 handleClose={this.handleClose}/>
             </Paper>
           </Popper>
-          <DeletePost id={id} />
+            <DeletePost id={id} />
         </TableCell>
         <TableCell>
           {id}
         </TableCell>
         <TableCell>
-          <Link to={`/post/${id}`}>{title}</Link>
+          <Link to={`/posts/${id}`}>{title}</Link>
         </TableCell>
         <TableCell>{tags.map(({ id, name }) => (<p key={id}> {name} </p>))}</TableCell>
-        <TableCell>{createdAt}</TableCell>
+        <TableCell>{data.toDateString()}</TableCell>
     
       </TableRow>      
     )

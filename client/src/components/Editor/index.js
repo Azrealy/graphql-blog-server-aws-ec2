@@ -100,7 +100,7 @@ class ReactMdeDemo extends React.Component {
       });
       this.setState({ mdeState: { markdown: '' }})
 
-      this.props.history.push(routes.LANDING)
+      this.props.history.push(routes.POSTS)
     });
 
     event.preventDefault();
