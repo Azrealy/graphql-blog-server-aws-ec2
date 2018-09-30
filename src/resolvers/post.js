@@ -18,6 +18,7 @@ export default {
                 limit: limit + 1,
                 ...cursorOptions
             })
+
             const hasNextPage = posts.length > limit
             const edges = hasNextPage ? posts.slice(0, -1) : posts
 
@@ -28,6 +29,7 @@ export default {
                     endCursor: edges[edges.length - 1].createdAt,
                 }
             }
+
         },
         post: async (parent, { id }, { models }) => {
             return await models.Post.findById(id);

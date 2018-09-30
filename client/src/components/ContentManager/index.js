@@ -8,7 +8,7 @@ import { GET_TAGS_LIST } from "./queries";
 import Editor from "../Editor";
 import withAuthorization from "../Session/withAuthorization";
 
-const ContentManager = ({history}) => (
+const ContentManager = ({ history, isUpdate, post, handleClose}) => (
   <div>
     <Query
       query={GET_TAGS_LIST}
@@ -25,7 +25,24 @@ const ContentManager = ({history}) => (
             return <ErrorMessage error={error} />
         }
 
-        return <Editor tags={tags} history={history} refetch={refetch}/>
+        if (isUpdate && post) {
+          const tagIds = post.tags.map(tag=> tag.id)
+          return <Editor
+                  id={post.id}
+                  title={post.title}
+                  description={post.description}
+                  content={post.content}
+                  tags={tags}
+                  tagIds={tagIds}
+                  handleClose={handleClose}
+                  isUpdate={isUpdate}
+                  history={history}
+                  refetch={refetch} />
+        }
+        return <Editor 
+          tags={tags}
+          history={history}
+          refetch={refetch}/>
       }}
 
     </Query>

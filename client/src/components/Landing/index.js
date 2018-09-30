@@ -1,7 +1,6 @@
 import React from 'react';
 import { Query } from "react-apollo";
-import ErrorMessage from '../Error';
-import PostList from '../PostList'
+import PostTable from '../PostTable'
 import Loading from '../Loading';
 import gql from "graphql-tag";
 
@@ -28,20 +27,15 @@ const Landing = () => (
     notifyOnNetworkStatusChange={true}
     >
     {({data, loading, error}) => {
-        const { posts } = data;
-        console.log(data)
-    
-        if (loading && !posts) {
+        console.log("data ", data)
+        if (loading && !data.posts) {
             return <Loading isCenter={true} />;
-          }      
-    
-        if (error) {
-            return <ErrorMessage error={error} />
-        }
+          }
 
         return (
-          <PostList
-            posts={posts.edges}
+          <PostTable
+            data={data}
+            error={error}
             />
         )
     }}
