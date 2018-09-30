@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import React from "react";
 import { render } from "react-dom";
+import { Router, Route } from 'react-router-dom';
 import "react-mde/lib/styles/css/react-mde-all.css";
 import "./style.css";
 import { ApolloProvider } from "react-apollo";
@@ -10,10 +11,21 @@ import { HttpLink } from "apollo-link-http";
 import { WebSocketLink } from "apollo-link-ws";
 import { onError } from "apollo-link-error";
 import { InMemoryCache } from "apollo-cache-inmemory";
-
-import App from './components/App';
 import { signOut } from "./components/SignOut";
 import registerServiceWorker from './registerServiceWorker';
+
+import LoginPage from "./views/LoginPage/LoginPage";
+import SignInPage from "./components/SignIn";
+import LandingPage from './components/Landing';
+import PostTablePage from "./components/PostTable";
+import Navigation from './components/Navigation';
+import PostPage from "./components/Post";
+import withSession from './components/Session/withSession';
+import ContentManagerPage from "./components/ContentManager";
+
+
+import * as routes from './constants/routes';
+import history from './constants/history';
 
 
 const httpLink = new HttpLink({
@@ -85,9 +97,43 @@ const client = new ApolloClient({
   cache
 })
 
+const App = ({ session, refetch }) => (
+  <Router history={history}>
+    <div>
+      <Route
+        exact
+        path={routes.LANDING}
+        component={() => <LandingPage />}
+      />
+
+      <Route
+        exact
+        path={routes.POSTS}
+        component={() => <PostTablePage />}
+      />
+
+      <Route
+        exact
+        path={routes.SIGN_IN}
+        component={() => <LoginPage refetch={refetch} history={history}/>}
+      />
+      <Route
+        exact
+        path={routes.CONTENT_MANAGER}
+        component={() => <ContentManagerPage refetch={refetch} />}
+      />
+      <Route
+        path='/posts/:number'
+        component={PostPage} />
+    </div>
+  </Router>
+)
+
+const WithSessionApp = withSession(App);
+
 const Index = () => (
   <ApolloProvider client={client} >
-    <App />
+    <WithSessionApp />
   </ApolloProvider>
 );
 
