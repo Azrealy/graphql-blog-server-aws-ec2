@@ -44,6 +44,9 @@ class PostTable extends React.Component {
                 Title 
               </TableCell>
               <TableCell>
+                Image 
+              </TableCell>
+              <TableCell>
                 Tags
               </TableCell>
               <TableCell>

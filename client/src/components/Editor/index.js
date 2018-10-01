@@ -16,8 +16,8 @@ import Button from '@material-ui/core/Button';
 
 
 const CREATE_POST = gql`
-mutation($title: String!, $description: String!, $content: String!, $tags: [ID!]!){
-    createPost(title: $title, description: $description, content: $content, tags: $tags){
+mutation($title: String!, $description: String!,$image: String!, $content: String!, $tags: [ID!]!){
+    createPost(title: $title, description: $description, image: $image, content: $content, tags: $tags){
       ...postContent
     }
 }
@@ -28,7 +28,8 @@ const UPDATE_POST = gql`
   mutation(
     $id: ID!, 
     $title: String!, 
-    $description: String!, 
+    $description: String!,
+    $image: String!, 
     $content: String!,
     $tags: [ID!]!)
     {
@@ -36,6 +37,7 @@ const UPDATE_POST = gql`
         id: $id,
         title: $title,
         description: $description,
+        image: $image,
         content: $content, 
         tags: $tags){
           ...postContent
@@ -71,6 +73,7 @@ class ReactMdeDemo extends React.Component {
     this.state = {
       title: this.props.title || "",
       description: this.props.description || "",
+      image: this.props.image || "",
       tagIds: this.props.tagIds || [],
       mdeState: {
         markdown: this.props.content || "",
@@ -96,6 +99,7 @@ class ReactMdeDemo extends React.Component {
       this.setState({ 
         title: "",
         description: "",
+        image: "",
         tagsIds:[]
       });
       this.setState({ mdeState: { markdown: '' }})
@@ -133,9 +137,9 @@ class ReactMdeDemo extends React.Component {
   };
 
   inputNode = (classes, loading) => {
-    const { title, description, tagIds } = this.state
+    const { title, description, image,  tagIds } = this.state
     const { markdown } = this.state.mdeState
-    const isInvalid = title === '' || description === '' || markdown === '' || tagIds.length === 0;
+    const isInvalid = title === '' || description === '' || markdown === '' || image === '' || tagIds.length === 0;
     return (
     <div>
       <div className={classes.container}>
@@ -161,6 +165,18 @@ class ReactMdeDemo extends React.Component {
           margin="normal"
           variant="filled"
         />
+        <TextField
+          id="filled-name"
+          label="Description"
+          className={classes.textField}
+          value={image}
+          name="image"
+          onChange={(e) => this.onChange(e)}
+          fullWidth
+          margin="normal"
+          variant="filled"
+        />
+        <img src={image} alt="No picture"/>
       </div>
       <h3>Tags</h3>
       {this.props.tags.map((tag) => (
@@ -228,7 +244,7 @@ class ReactMdeDemo extends React.Component {
 
   render() {
     const { classes, isUpdate, id } = this.props
-    const { title, description, tagIds } = this.state
+    const { title, description, tagIds, image } = this.state
     const { markdown } = this.state.mdeState
     console.log("State of editor", this.state)
     if (isUpdate) {
@@ -236,7 +252,7 @@ class ReactMdeDemo extends React.Component {
       <div>
         <Mutation
           mutation={UPDATE_POST}
-            variables={{ id: id, title: title, description: description, content: markdown, tags: tagIds}}
+            variables={{ id: id, title: title, description: description, image: image, content: markdown, tags: tagIds}}
           update={this.updatePost}>
           {(updatePost, { data, loading, error }) => (
             <form onSubmit={event => this.onUpdateSubmit(event, updatePost)} >
@@ -252,7 +268,7 @@ class ReactMdeDemo extends React.Component {
       <div>
         <Mutation 
           mutation={CREATE_POST} 
-          variables={{ title, description, content: markdown, tags: tagIds }}
+          variables={{ title, description, image, content: markdown, tags: tagIds }}
           update={this.addPost}>
           {(createPost, { data, loading, error }) => (
             <form onSubmit={event => this.onSubmit(event, createPost)} >

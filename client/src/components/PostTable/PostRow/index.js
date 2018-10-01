@@ -36,7 +36,7 @@ class PostRow extends React.Component {
     const { 
       id, 
       title, 
-      description, 
+      image,
       createdAt, 
       content, 
       tags, 
@@ -84,6 +84,7 @@ class PostRow extends React.Component {
         <TableCell>
           <Link to={`/posts/${id}`}>{title}</Link>
         </TableCell>
+        <TableCell><img src={image} height="80" width="90" /></TableCell>
         <TableCell>{tags.map(({ id, name }) => (<p key={id}> {name} </p>))}</TableCell>
         <TableCell>{data.toDateString()}</TableCell>
     

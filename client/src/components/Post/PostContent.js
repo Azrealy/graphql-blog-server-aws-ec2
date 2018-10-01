@@ -5,11 +5,13 @@ const PostContent = ({
     id,
     title,
     description,
+    image,
     content,
     createdAt,
     tags,
 }) => (
         <div>
+            <img src={image} alt="HTML5 Icon" />
             <h2>{title}</h2>
 
             <h3>{description}</h3>

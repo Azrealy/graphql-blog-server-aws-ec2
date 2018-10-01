@@ -13,6 +13,7 @@ export default gql`
         createPost(
             title: String!,
             description: String!,
+            image: String!,
             content: String!,
             tags: [ID!]!
         ): Post!
@@ -23,6 +24,7 @@ export default gql`
             id: ID!,
             title: String!,
             description: String!,
+            image: String!,
             content: String!,
             tags: [ID!]!
         ): Post!
@@ -43,6 +45,7 @@ export default gql`
         id: ID!
         title: String!
         description: String!
+        image: String!
         tags: [Tag!]!
         content: String!
         createdAt: String!

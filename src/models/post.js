@@ -18,6 +18,15 @@ const post = (sequelize, DataTypes) => {
           }
         }
       },
+      image: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: 'Post image link can not be empty',
+          }
+        }
+      },
 
       content: {
         type: DataTypes.STRING(2000) ,

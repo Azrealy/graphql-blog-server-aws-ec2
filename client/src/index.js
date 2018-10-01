@@ -14,15 +14,15 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { signOut } from "./components/SignOut";
 import registerServiceWorker from './registerServiceWorker';
 
-//import App from "./components/App";
-import App from "./App";
+import App from "./components/App";
+//import App from "./App";
 
 import * as routes from './constants/routes';
 import history from './constants/history';
 
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:8000/graphql',
+  uri: 'http://192.168.10.10:8000/graphql',
 })
 
 /* const wsLink = new WebSocketLink({

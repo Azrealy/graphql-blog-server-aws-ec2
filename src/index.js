@@ -113,6 +113,7 @@ const createUsersWithMessages = async date => {
     {
       title: 'This is test post',
       description: 'This is the first post description',
+      image: "https://cdn.stocksnap.io/img-thumbs/960w/VCIZS7BTXZ.jpg",
       content: dummyBlog,
       createdAt: date.setSeconds(date.getSeconds() + 1),
     }
@@ -123,6 +124,7 @@ const createUsersWithMessages = async date => {
     {
       title: 'This is second test post',
       description: 'This is the first post description',
+      image: "https://cdn.stocksnap.io/img-thumbs/960w/CPZ4W8T1AT.jpg",
       content: dummyBlog,
       createdAt: date.setSeconds(date.getSeconds() + 1)
     }

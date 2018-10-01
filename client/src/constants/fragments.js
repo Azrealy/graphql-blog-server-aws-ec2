@@ -6,6 +6,7 @@ const POST_FRAGMENT = gql`
         title
         content
         description
+        image
         createdAt
         tags {
             id

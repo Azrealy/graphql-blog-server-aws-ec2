@@ -25,6 +25,8 @@ class PostItemSection extends React.Component {
       classes.imgRounded,
       classes.imgFluid
     );
+    const url_link = "https://cdn.stocksnap.io/img-thumbs/960w/YJDYDAUZTM.jpg"
+    const url_link1 = "https://cdn.stocksnap.io/img-thumbs/960w/VCIZS7BTXZ.jpg"
     return (
       <div className={classes.section}>
         <div>
@@ -32,7 +34,7 @@ class PostItemSection extends React.Component {
           <GridContainer>
                 <GridItem xs={12} md={4} className={classes.itemGrid}>
                 <Link to="/blog">
-                <img src={image} alt="..." className={imageClasses} />
+                <img src={url_link} alt="..." className={imageClasses} />
                 </Link>
                 </GridItem>
 
@@ -56,7 +58,7 @@ class PostItemSection extends React.Component {
             <br/><br/>
             <GridContainer>
                 <GridItem xs={12} md={4} className={classes.itemGrid}>
-                  <img src={image2} alt="..." className={imageClasses} />
+                  <img src={url_link1} alt="..." className={imageClasses} />
                 </GridItem>
                 <GridItem xs={12} md={8} className={classes.itemGrid}>
                 <h2 className={classes.cardTitle}> 

@@ -32,6 +32,7 @@ const ContentManager = ({ history, isUpdate, post, handleClose}) => (
                   title={post.title}
                   description={post.description}
                   content={post.content}
+                  image={post.image}
                   tags={tags}
                   tagIds={tagIds}
                   handleClose={handleClose}
