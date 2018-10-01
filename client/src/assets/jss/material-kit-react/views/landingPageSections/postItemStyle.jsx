@@ -55,6 +55,10 @@ const postItemStyle = {
     fontSize: "20px",
     color: "#999"
   },
+  pagination: {
+    textAlign: "center",
+    position: "relative"
+  },
   margin5: {
     margin: "5px"
   }

@@ -16,15 +16,15 @@ import GridContainer from "../../material-components/Grid/GridContainer.jsx";
 import GridItem from "../../material-components/Grid/GridItem.jsx";
 import HeaderLinks from "../../material-components/Header/HeaderLinks.jsx";
 import Parallax from "../../material-components/Parallax/Parallax.jsx";
-import Paginations from "../../material-components/Pagination/Pagination.jsx";
 import landingPageStyle from "../../assets/jss/material-kit-react/views/landingPage.jsx";
 
 // Sections for this page
 import PostItemSection from "./Sections/PostItemSection.jsx";
+import post from "../../../../src/models/post";
 
 const GET_POSTS_LIST = gql`
-  {
-    posts {
+  query($cursor: String, $limit: String){
+    posts(cursor: $cursor, limit: $limit) {
       edges {
         id
         title
@@ -46,6 +46,14 @@ const GET_POSTS_LIST = gql`
 
 class LandingPage extends React.Component {
 
+  state = {
+    hasNextPage: true,
+    endCursor: "",
+    cursor: "",
+    limit: 5,
+    pageId: 1,
+  }
+
   renderLoadingOrPostItem = (classes, loading, data, error) => {
     if (loading && !data.posts) {
       return (
@@ -62,13 +70,29 @@ class LandingPage extends React.Component {
     }
   }
 
+  onChickPage = (refetch, posts, cursor, chickId) => {
+    if (chickId === "NEXT") {
+      this.setState({
+        hasNextPage: posts.postInfo.hasNextPage,
+        endCursor: posts.postInfo.endCursor})
+      await refetch()
+    } if (chickId === "OLD") {
+      this.setState({
+        hasNextPage: posts.postInfo.hasNextPage, 
+        cursor: this.state.cursor,})
+        await refetch();
+    }
+    await refetch();
+  }
+
   render() {
     const { classes, ...rest } = this.props;
     return (
       <Query
         query={GET_POSTS_LIST}
+        variables={{cursor, limit}}
         notifyOnNetworkStatusChange={true}>
-      {({ data, loading, error }) => (
+      {({ data, loading, error, refetch }) => (
       <div>
         <Header
           color="transparent"
@@ -98,20 +122,6 @@ class LandingPage extends React.Component {
         </Parallax>
         <div className={classNames(classes.main, classes.mainRaised)}>
           {this.renderLoadingOrPostItem(classes, loading, data, error)}
-          <div className={classes.pagination}>
-            <Paginations
-              pages={[
-                { text: "PREV" },
-                { text: 1 },
-                { text: 2 },
-                { active: true, text: 3 },
-                { text: 4 },
-                { text: 5 },
-                { text: "NEXT" }
-              ]}
-              color="primary"
-            />
-          </div>
         </div>
         <Footer />
       </div>

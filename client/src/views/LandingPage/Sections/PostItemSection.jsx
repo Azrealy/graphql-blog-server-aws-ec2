@@ -12,13 +12,14 @@ import GridContainer from "../../../material-components/Grid/GridContainer.jsx";
 import GridItem from "../../../material-components/Grid/GridItem.jsx";
 import Button from "../../../material-components/CustomButtons/Button.jsx";
 
+import Paginations from "../../../material-components/Pagination/Pagination.jsx";
 import postItemStyle from "../../../assets/jss/material-kit-react/views/landingPageSections/postItemStyle.jsx";
 import SnackbarContent from "../../../material-components/Snackbar/SnackbarContent.jsx";
 
 const toIdHash = string => Buffer.from(string).toString('base64');
 
 class PostItemSection extends React.Component {
-  
+
   renderPostContainer = (classes, imageClasses) => {
     const { data, error } = this.props
     if (error) {
@@ -82,6 +83,12 @@ class PostItemSection extends React.Component {
       }
   }
 
+  pageOnClick = (prop) => {
+    if (prop.text === "PREV") {
+      this.setState()
+    }
+  }
+
   render() {
     const { classes } = this.props;
     const imageClasses = classNames(
@@ -94,6 +101,21 @@ class PostItemSection extends React.Component {
         <div>
         <h2 className={classes.title}>Here is My blogs</h2>
         {this.renderPostContainer(classes, imageClasses)}
+        <div className={classes.pagination}>
+            <Paginations
+              pages={[
+                { onClick: this.pageOnClick()},
+                { text: "PREV" },
+                { text: 1 },
+                { text: 2 },
+                { active: true, text: 3 },
+                { text: 4 },
+                { text: 5 },
+                { text: "NEXT" }
+              ]}
+              color="primary"
+            />
+          </div>
         </div>
       </div>
     );
