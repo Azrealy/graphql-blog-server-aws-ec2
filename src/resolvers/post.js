@@ -4,29 +4,42 @@ import { combineResolvers } from 'graphql-resolvers';
 
 export default {
     Query: {
-        posts: async (parent, { cursor, limit = 10 }, { models }) => {
-            const cursorOptions = cursor
-            ? {
+        posts: async (parent, { forward, cursor, limit = 10 }, { models }) => {
+            const orderCursorOptions = forward ?
+              {
+                where: {
+                  createdAt: {
+                    [Sequelize.Op.gt]: cursor,
+                  },
+                },
+              } : {
                 where: {
                   createdAt: {
                     [Sequelize.Op.lt]: cursor,
                   },
                 },
               }
+            const cursorOptions = cursor
+            ? {
+                ...orderCursorOptions
+            }
             : {};
+            const orderOption = forward ? 
+              { order: [['createdAt', 'ASC']] } : {order: [['createdAt', 'DESC']]}
             const posts = await models.Post.findAll({
-                order: [['createdAt', 'DESC']],
-                limit: limit + 1,
-                ...cursorOptions
+              ...orderOption,
+              limit: limit + 1,
+              ...cursorOptions
             })
 
             const hasNextPage = posts.length > limit
             const edges = hasNextPage ? posts.slice(0, -1) : posts
 
             return {
-                edges: edges,
+                edges: edges.sort((a, b) => b.createdAt - a.createdAt ),
                 postInfo: {
                     hasNextPage: hasNextPage,
+                    startCursor: edges[0].createdAt,
                     endCursor: edges[edges.length - 1].createdAt,
                 }
             }

@@ -83,12 +83,6 @@ class PostItemSection extends React.Component {
       }
   }
 
-  pageOnClick = (prop) => {
-    if (prop.text === "PREV") {
-      this.setState()
-    }
-  }
-
   render() {
     const { classes } = this.props;
     const imageClasses = classNames(
@@ -104,7 +98,6 @@ class PostItemSection extends React.Component {
         <div className={classes.pagination}>
             <Paginations
               pages={[
-                { onClick: this.pageOnClick()},
                 { text: "PREV" },
                 { text: 1 },
                 { text: 2 },

@@ -5,7 +5,7 @@ export default gql`
     scalar DateTime
 
     extend type Query {
-        posts(cursor: String, limit: Int): PostConnection!
+        posts(forward: Boolean, cursor: String, limit: Int): PostConnection!
         post(id: ID!): Post!
     }
 
@@ -38,6 +38,7 @@ export default gql`
 
     type PostInfo {
         hasNextPage: Boolean!
+        startCursor: String!
         endCursor: String!
     }
 
