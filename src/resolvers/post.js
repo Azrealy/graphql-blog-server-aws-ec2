@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
-
+import { isAdmin } from './authorization';
+import { combineResolvers } from 'graphql-resolvers';
 
 export default {
     Query: {
@@ -37,36 +38,46 @@ export default {
     },
 
     Mutation: {
-        createPost: async (parent, { title, description, image, content, tags }, { models } ) => {
-            const date = new Date()
-            const post = await models.Post.create({
-                title: title,
-                description: description,
-                image: image,
-                content: content,
-                createdAt: date.setSeconds(date.getSeconds() + 1)
-                })
-            await post.setTags(tags);
+        createPost: combineResolvers(
+            isAdmin,
+            async (parent, { title, description, image, content, tags }, { models } ) => {
+                const date = new Date()
+                const post = await models.Post.create({
+                    title: title,
+                    description: description,
+                    image: image,
+                    content: content,
+                    createdAt: date.setSeconds(date.getSeconds() + 1)
+                    })
+                await post.setTags(tags);
 
-            return post
-        },
-        deletePost: async (parent, { id }, { models }) => {
+                return post
+            },            
+        ),
+
+        deletePost: combineResolvers(
+            isAdmin,
+            async (parent, { id }, { models }) => {
             return await models.Post.destroy({  where: { id } })
-        },
-        updatePost: async (parent, { id, title, description, image, content, tags}, { models }) => {
-            const post = await models.Post.findById(id);
+        }),
 
-            await post.update({ 
-                title,
-                description,
-                image,
-                content
-             })
-            
-            await post.setTags(tags);
-
-            return post;
-        }
+        updatePost: combineResolvers(
+            isAdmin,
+            async (parent, { id, title, description, image, content, tags}, { models }) => {
+                const post = await models.Post.findById(id);
+    
+                await post.update({ 
+                    title,
+                    description,
+                    image,
+                    content
+                 })
+                
+                await post.setTags(tags);
+    
+                return post;
+            }
+        )
     },
     Post: {
         tags: async (post, args, { models }) => {

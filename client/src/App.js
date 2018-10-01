@@ -1,12 +1,13 @@
 import React from 'react'
 import LoginPage from "./views/LoginPage/LoginPage";
 import LandingPage from "./views/LandingPage/LandingPage"
+import PostPage from "./views/PostPage/PostPage";
+import ContentManagerPage from "./views/ContentManagerPage/ContentManagerPage";
 import { Router, Route } from 'react-router-dom';
 import SignInPage from "./components/SignIn";
 import PostTablePage from "./components/PostTable";
-import PostPage from "./components/Post";
 import withSession from './components/Session/withSession';
-import ContentManagerPage from "./components/ContentManager";
+import ContentEditorPage from "./components/ContentManager";
 
 import * as routes from './constants/routes';
 import history from './constants/history';
@@ -22,8 +23,8 @@ const HeavyApp = ({ session, refetch }) => (
 
       <Route
         exact
-        path={routes.POSTS}
-        component={() => <PostTablePage />}
+        path={routes.CONTENT_MANAGER}
+        component={() => <ContentManagerPage />}
       />
 
       <Route
@@ -33,11 +34,11 @@ const HeavyApp = ({ session, refetch }) => (
       />
       <Route
         exact
-        path={routes.CONTENT_MANAGER}
-        component={() => <ContentManagerPage refetch={refetch} />}
+        path={routes.EDITOR_MANAGER}
+        component={() => <ContentEditorPage refetch={refetch} />}
       />
       <Route
-        path='/posts/:number'
+        path='/posts/:hash'
         component={PostPage} />
     </div>
   </Router>

@@ -14,7 +14,6 @@ import Header from "../../material-components/Header/Header.jsx";
 import Footer from "../../material-components/Footer/Footer.jsx";
 import GridContainer from "../../material-components/Grid/GridContainer.jsx";
 import GridItem from "../../material-components/Grid/GridItem.jsx";
-import Button from "../../material-components/CustomButtons/Button.jsx";
 import HeaderLinks from "../../material-components/Header/HeaderLinks.jsx";
 import Parallax from "../../material-components/Parallax/Parallax.jsx";
 import Paginations from "../../material-components/Pagination/Pagination.jsx";

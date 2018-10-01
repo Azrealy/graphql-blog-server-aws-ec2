@@ -35,7 +35,7 @@ class PostTable extends React.Component {
           <TableHead>
             <TableRow>
               <TableCell>
-                <Link to={routes.CONTENT_MANAGER}>New Post</Link>
+                <Link to={routes.EDITOR_MANAGER}>New Post</Link>
               </TableCell>
               <TableCell>
                 ID

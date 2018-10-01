@@ -16,6 +16,7 @@ import './style.css';
 
 import * as routes from '../../../constants/routes';
 
+const toIdHash = string => Buffer.from(string).toString('base64');
 
 class PostRow extends React.Component {
   anchorEl = null
@@ -82,7 +83,7 @@ class PostRow extends React.Component {
           {id}
         </TableCell>
         <TableCell>
-          <Link to={`/posts/${id}`}>{title}</Link>
+          <Link to={`/posts/${toIdHash(id)}`}>{title}</Link>
         </TableCell>
         <TableCell><img src={image} height="80" width="90" /></TableCell>
         <TableCell>{tags.map(({ id, name }) => (<p key={id}> {name} </p>))}</TableCell>

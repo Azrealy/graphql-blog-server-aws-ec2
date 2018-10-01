@@ -15,6 +15,8 @@ import Button from "../../../material-components/CustomButtons/Button.jsx";
 import postItemStyle from "../../../assets/jss/material-kit-react/views/landingPageSections/postItemStyle.jsx";
 import SnackbarContent from "../../../material-components/Snackbar/SnackbarContent.jsx";
 
+const toIdHash = string => Buffer.from(string).toString('base64');
+
 class PostItemSection extends React.Component {
   
   renderPostContainer = (classes, imageClasses) => {
@@ -36,10 +38,10 @@ class PostItemSection extends React.Component {
       return data.posts.edges.map((post) => {
         const data = new Date(Number(post.createdAt))
         return (
-          <Fragment>
-          <GridContainer key={post.id}>
+          <div key={post.id}>
+          <GridContainer>
             <GridItem xs={12} md={4} className={classes.itemGrid}>
-              <Link to="/blog">
+              <Link to={`/posts/${toIdHash(post.id)}`}>
               <img src={post.image} alt="..." className={imageClasses} />
               </Link>
               </GridItem>
@@ -47,7 +49,7 @@ class PostItemSection extends React.Component {
               <GridItem xs={12} md={8} className={classes.itemGrid}>
 
                 <h2 className={classes.cardTitle}> 
-                <Link to="/blog" className={classes.link}>
+                <Link to={`/posts/${toIdHash(post.id)}`} className={classes.link}>
                 {post.title}
                 </Link>
                 </h2>
@@ -63,7 +65,7 @@ class PostItemSection extends React.Component {
             </GridItem>
           </GridContainer>
           <br/><br/>
-          </Fragment>    
+          </div> 
           )
       }) 
     } else {

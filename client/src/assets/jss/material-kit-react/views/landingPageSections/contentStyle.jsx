@@ -1,6 +1,7 @@
 import { title } from "../../../material-kit-react.jsx";
+import imagesStyle from "../../imagesStyles.jsx";
 
-const productStyle = {
+const contentStyle = {
   section: {
     display: "inline-block",
     padding: "70px 0",
@@ -13,6 +14,7 @@ const productStyle = {
     minHeight: "32px",
     textDecoration: "none"
   },
+  ...imagesStyle,
   code: {
     padding: "2px 2px",
     margin: "0 2px",
@@ -29,4 +31,4 @@ const productStyle = {
   },
 };
 
-export default productStyle;
+export default contentStyle;

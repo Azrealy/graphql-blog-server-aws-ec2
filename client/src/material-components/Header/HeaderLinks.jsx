@@ -18,6 +18,7 @@ import { ApolloConsumer } from 'react-apollo';
 import headerLinksStyle from "../../assets/jss/material-kit-react/components/headerLinksStyle.jsx";
 import { signOut } from "../../components/SignOut";
 import withSession from "../../components/Session/withSession";
+import * as routes from "../../constants/routes"
 
 const HeaderLinks = ({ session }) => (
   <div>
@@ -133,7 +134,7 @@ function HeaderLinksAfterAuth({ ...props }) {
           onClick={e => e.preventDefault()}
           color="transparent"
         >
-          <AccountCircle className={classes.icons} /><Link to="/posts" className={classes.navIconLink}> Contents Manager </Link>
+          <AccountCircle className={classes.icons} /><Link to={routes.CONTENT_MANAGER} className={classes.navIconLink}> Contents Manager </Link>
         </Button>
       </ListItem>
           )

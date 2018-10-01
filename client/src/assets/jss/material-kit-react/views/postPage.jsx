@@ -1,12 +1,14 @@
 import { container, title } from "../../material-kit-react.jsx";
+import imagesStyle from "../imagesStyles.jsx";
 
-const landingPageStyle = {
+const postPageStyle = {
     container: {
         zIndex: "12",
         color: "#FFFFFF",
         textAlign: "center",
         ...container
     },
+    ...imagesStyle,
     title: {
         ...title,
         display: "inline-block",
@@ -38,4 +40,4 @@ const landingPageStyle = {
     }
 };
 
-export default landingPageStyle;
+export default postPageStyle;

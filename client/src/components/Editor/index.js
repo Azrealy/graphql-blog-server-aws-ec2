@@ -13,6 +13,8 @@ import POST_FRAGMENT from "../../constants/fragments";
 import * as routes from '../../constants/routes';
 import ErrorMessage from '../Error';
 import Button from '@material-ui/core/Button';
+import Header from "../../material-components/Header/Header.jsx";
+import HeaderLinks from "../../material-components/Header/HeaderLinks.jsx";
 
 
 const CREATE_POST = gql`
@@ -72,12 +74,14 @@ class ReactMdeDemo extends React.Component {
     super(props);
     this.state = {
       title: this.props.title || "",
-      description: this.props.description || "",
       image: this.props.image || "",
       tagIds: this.props.tagIds || [],
-      mdeState: {
+      contentState: {
         markdown: this.props.content || "",
       },
+      descriptionState: {
+        markdown: this.props.description || "",
+      }
     };
     this.converter = new Showdown.Converter({
       tables: true,
@@ -90,21 +94,25 @@ class ReactMdeDemo extends React.Component {
     this.setState({ [name]: value });
   };
 
-  onTextChange = mdeState => {
-    this.setState({ mdeState });
+  onContentChange = contentState => {
+    this.setState({ contentState });
   };
+
+  onDescriptionChange = descriptionState => {
+    this.setState({ descriptionState })
+  } 
 
   onSubmit = (event, createPost) => {
     createPost().then(async ({ data }) => {
       this.setState({ 
         title: "",
-        description: "",
         image: "",
         tagsIds:[]
       });
-      this.setState({ mdeState: { markdown: '' }})
+      this.setState({ contentState: { markdown: '' }})
+      this.setState({ descriptionState: { markdown: ''}})
 
-      this.props.history.push(routes.POSTS)
+      this.props.history.push(routes.CONTENT_MANAGER)
     });
 
     event.preventDefault();
@@ -114,10 +122,12 @@ class ReactMdeDemo extends React.Component {
     updatePost().then(async ({ data }) => {
       this.setState({
         title: "",
-        description: "",
+        image: "",
         tagsIds: []
       });
-      this.setState({ mdeState: { markdown: '' } })
+      this.setState({ contentState: { markdown: '' }})
+      this.setState({ descriptionState: { markdown: ''}})
+
       this.props.handleClose()
     });
 
@@ -136,16 +146,14 @@ class ReactMdeDemo extends React.Component {
     return this.converter.makeHtml(markdown);
   };
 
-  inputNode = (classes, loading) => {
-    const { title, description, image,  tagIds } = this.state
-    const { markdown } = this.state.mdeState
-    const isInvalid = title === '' || description === '' || markdown === '' || image === '' || tagIds.length === 0;
+  inputForm = (classes, loading, title, image, tagIds, isInvalid) => {
     return (
     <div>
+      <h3>Title</h3>
       <div className={classes.container}>
         <TextField
           id="filled-name"
-          label="Title"
+          label="Input your post title"
           className={classes.textField}
           value={title}
           onChange={(e) => this.onChange(e)}
@@ -154,20 +162,12 @@ class ReactMdeDemo extends React.Component {
           margin="normal"
           variant="filled"
         />
+      </div>
+      <h3>Image Link</h3>
+      <div className={classes.container}>
         <TextField
           id="filled-name"
-          label="Description"
-          className={classes.textField}
-          value={description}
-          name="description"
-          onChange={(e) => this.onChange(e)}
-          fullWidth
-          margin="normal"
-          variant="filled"
-        />
-        <TextField
-          id="filled-name"
-          label="Image"
+          label="Input your image url"
           className={classes.textField}
           value={image}
           name="image"
@@ -178,9 +178,17 @@ class ReactMdeDemo extends React.Component {
         />
         <img src={image} alt="No picture"/>
       </div>
+      <h3>Description</h3>
+        <ReactMde
+          layout="vertical"
+          onChange={this.onDescriptionChange}
+          editorState={this.state.descriptionState}
+          generateMarkdownPreview={this.generateMarkdownPreview}
+        />
+
       <h3>Tags</h3>
       {this.props.tags.map((tag) => (
-        <div key={tag.id}>
+        <React.Fragment key={tag.id}>
           <FormControlLabel
             control={
               <Checkbox
@@ -193,14 +201,14 @@ class ReactMdeDemo extends React.Component {
             }
             label={tag.name}
           />
-        </div>
+        </React.Fragment>
       ))}
       <AddTag refetch={this.props.refetch} />
       <h3>Content</h3>
       <ReactMde
         layout="horizontal"
-        onChange={this.onTextChange}
-        editorState={this.state.mdeState}
+        onChange={this.onContentChange}
+        editorState={this.state.contentState}
         generateMarkdownPreview={this.generateMarkdownPreview}
       />
         <Button disabled={isInvalid || loading} type="submit" style={{ marginTop: 20 }}>
@@ -243,20 +251,28 @@ class ReactMdeDemo extends React.Component {
   }
 
   render() {
-    const { classes, isUpdate, id } = this.props
-    const { title, description, tagIds, image } = this.state
-    const { markdown } = this.state.mdeState
+    const { classes, isUpdate, id , ...rest} = this.props
+    const { title, tagIds, image } = this.state
+    const description = this.state.descriptionState.markdown
+    const content = this.state.contentState.markdown
+    const isInvalid = title === '' || image === '' || description === '' || content === '' || tagIds.length === 0
     console.log("State of editor", this.state)
     if (isUpdate) {
       return (
       <div>
         <Mutation
           mutation={UPDATE_POST}
-            variables={{ id: id, title: title, description: description, image: image, content: markdown, tags: tagIds}}
+          variables={{ 
+            id: id, 
+            title: title, 
+            description: description, 
+            image: image, 
+            content: content, 
+            tags: tagIds}}
           update={this.updatePost}>
           {(updatePost, { data, loading, error }) => (
             <form onSubmit={event => this.onUpdateSubmit(event, updatePost)} >
-              {this.inputNode(classes, loading)}
+              {this.inputForm(classes, loading, title, image, tagIds, isInvalid)}
                 <Button onClick={() => this.props.handleClose()}> close</Button>
               {error && <ErrorMessage error={error} />}
             </form>)}
@@ -266,13 +282,21 @@ class ReactMdeDemo extends React.Component {
     } else {
     return (
       <div>
+        <Header
+          color="info"
+          brand="George Fang"
+          rightLinks={<HeaderLinks />}
+          fixed
+          {...rest}
+        />
+        <br/><br/><br/><br/>
         <Mutation 
           mutation={CREATE_POST} 
-          variables={{ title, description, image, content: markdown, tags: tagIds }}
+          variables={{ title, description, image, content, tags: tagIds }}
           update={this.addPost}>
           {(createPost, { data, loading, error }) => (
             <form onSubmit={event => this.onSubmit(event, createPost)} >
-              {this.inputNode(classes, loading)}
+              {this.inputForm(classes, loading, title, image, tagIds, isInvalid)}
               {error && <ErrorMessage error={error} />}
           </form>)}
       </Mutation>

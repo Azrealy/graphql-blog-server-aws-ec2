@@ -41,7 +41,7 @@ class SignInForm extends Component {
 
             await this.props.refetch()
 
-            this.props.history.push(routes.POSTS)
+            this.props.history.push(routes.CONTENT_MANAGER)
         })
         event.preventDefault()
     }
