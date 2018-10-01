@@ -82,7 +82,6 @@ class LoginPage extends React.Component {
         );
     }
   render() {
-    console.log("state of login", this.state);
     const { login, password } = this.state;
     const isInvalid = password === '' || login === '';
     const { classes, ...rest } = this.props;
@@ -106,6 +105,14 @@ class LoginPage extends React.Component {
           }}
         >
           <div className={classes.container}>
+          {error && <SnackbarContent
+          message={
+            <span>
+              <b>WARNING ALERT:</b> Login Failed !
+            </span>}
+          close
+          color="warning"
+          icon={Warning} />}
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={4}>
                 <Card className={classes[this.state.cardAnimaton]}>
@@ -166,14 +173,6 @@ class LoginPage extends React.Component {
                         Submit
                       </Button>
                     </CardFooter>
-                    {error && <SnackbarContent
-                      message={
-                        <span>
-                          <b>WARNING ALERT:</b> Login Failed !
-                        </span>}
-                      close
-                      color="warning"
-                      icon={Warning} />}
                   </form>
                 </Card>
               </GridItem>

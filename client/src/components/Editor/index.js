@@ -167,7 +167,7 @@ class ReactMdeDemo extends React.Component {
         />
         <TextField
           id="filled-name"
-          label="Description"
+          label="Image"
           className={classes.textField}
           value={image}
           name="image"

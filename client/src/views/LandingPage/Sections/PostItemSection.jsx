@@ -1,8 +1,9 @@
-import React from "react";
+import React ,{ Fragment }from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
+import Warning from "@material-ui/icons/Warning";
 // @material-ui/icons
 import{ Link } from "react-router-dom";
 // core components
@@ -12,12 +13,73 @@ import GridItem from "../../../material-components/Grid/GridItem.jsx";
 import Button from "../../../material-components/CustomButtons/Button.jsx";
 
 import postItemStyle from "../../../assets/jss/material-kit-react/views/landingPageSections/postItemStyle.jsx";
-
-import image from "../../../assets/img/bg.jpg";
-import image2 from "../../../assets/img/bg2.jpg";
-import image3 from "../../../assets/img/bg3.jpg";
+import SnackbarContent from "../../../material-components/Snackbar/SnackbarContent.jsx";
 
 class PostItemSection extends React.Component {
+  
+  renderPostContainer = (classes, imageClasses) => {
+    const { data, error } = this.props
+    if (error) {
+      return (
+      <SnackbarContent
+        message={
+          <span>
+            <b>WARNING ALERT:</b> Server Error, Try to refresh your browser!
+          </span>}
+        close
+        color="warning"
+        icon={Warning} />
+      )
+    }
+    if ((data && data.posts.edges.length !== 0)) {
+
+      return data.posts.edges.map((post) => {
+        const data = new Date(Number(post.createdAt))
+        return (
+          <Fragment>
+          <GridContainer key={post.id}>
+            <GridItem xs={12} md={4} className={classes.itemGrid}>
+              <Link to="/blog">
+              <img src={post.image} alt="..." className={imageClasses} />
+              </Link>
+              </GridItem>
+
+              <GridItem xs={12} md={8} className={classes.itemGrid}>
+
+                <h2 className={classes.cardTitle}> 
+                <Link to="/blog" className={classes.link}>
+                {post.title}
+                </Link>
+                </h2>
+                <h5 className={classes.description}>
+                  {post.description}
+                  </h5>
+                  <h5 className={classes.smallTitle}>
+                    Tag: {post.tags.map(({ id, name }) => (
+                      <Fragment><Badge color="primary" key={id}>#{name}</Badge></Fragment>
+                    ))}
+                  </h5>
+                  <h5 className={classes.smallTitle}> Created by George at {data.toDateString()}</h5>
+            </GridItem>
+          </GridContainer>
+          <br/><br/>
+          </Fragment>    
+          )
+      }) 
+    } else {
+        return (
+          <SnackbarContent
+            message={
+              <span>
+                <b>WARNING ALERT:</b> Post like disappeared! Try to refresh your browser!
+              </span>}
+            close
+            color="warning"
+            icon={Warning} />
+          )
+      }
+  }
+
   render() {
     const { classes } = this.props;
     const imageClasses = classNames(
@@ -25,78 +87,11 @@ class PostItemSection extends React.Component {
       classes.imgRounded,
       classes.imgFluid
     );
-    const url_link = "https://cdn.stocksnap.io/img-thumbs/960w/YJDYDAUZTM.jpg"
-    const url_link1 = "https://cdn.stocksnap.io/img-thumbs/960w/VCIZS7BTXZ.jpg"
     return (
       <div className={classes.section}>
         <div>
         <h2 className={classes.title}>Here is My blogs</h2>
-          <GridContainer>
-                <GridItem xs={12} md={4} className={classes.itemGrid}>
-                <Link to="/blog">
-                <img src={url_link} alt="..." className={imageClasses} />
-                </Link>
-                </GridItem>
-
-                <GridItem xs={12} md={8} className={classes.itemGrid}>
-
-                  <h2 className={classes.cardTitle}> 
-                  <Link to="/blog" className={classes.link}>
-                  My first Article
-                  </Link>
-                  </h2>
-                  <h5 className={classes.description}>
-                    You can write here details about one of your team members.
-                    You can give more details about what they do. Feel free to
-                    add some links for people to be able to
-                    follow them outside the site.
-                    </h5>
-                    <h5 className={classes.smallTitle}> Tag: <Badge color="primary" >#Feeling</Badge></h5>
-                    <h5 className={classes.smallTitle}> Created by George at 2 two hours ago</h5>
-                  </GridItem>
-            </GridContainer>
-            <br/><br/>
-            <GridContainer>
-                <GridItem xs={12} md={4} className={classes.itemGrid}>
-                  <img src={url_link1} alt="..." className={imageClasses} />
-                </GridItem>
-                <GridItem xs={12} md={8} className={classes.itemGrid}>
-                <h2 className={classes.cardTitle}> 
-                  <Link to="/blog" className={classes.link}>
-                  My first Article
-                  </Link>
-                  </h2>
-                  <h5 className={classes.description}>
-                    You can write here details about one of your team members.
-                    You can give more details about what they do. Feel free to
-                    add some links for people to be able to
-                    follow them outside the site.
-                    </h5>
-                    <h5 className={classes.smallTitle}> Tag: <Badge color="primary" >#Feeling</Badge></h5>
-                    <h5 className={classes.smallTitle}> Created by George at 2 two hours ago</h5>
-                  </GridItem>
-            </GridContainer>
-            <br/><br/>
-            <GridContainer>
-                <GridItem xs={12} md={4} className={classes.itemGrid}>
-                  <img src={image3} alt="..." className={imageClasses} />
-                </GridItem>
-                <GridItem xs={12} md={8} className={classes.itemGrid}>
-                <h2 className={classes.cardTitle}> 
-                  <Link to="/blog" className={classes.link}>
-                  My first Article
-                  </Link>
-                  </h2>
-                  <h5 className={classes.description}>
-                    You can write here details about one of your team members.
-                    You can give more details about what they do. Feel free to
-                    add some <a href="#pablo">links</a> for people to be able to
-                    follow them outside the site.
-                    <h5 className={classes.smallTitle}> Tag: <Badge color="info" >#Javascript</Badge></h5>
-                    <h5 className={classes.smallTitle}> Created by George at 2 two hours ago</h5>
-                  </h5>
-                  </GridItem>
-            </GridContainer>
+        {this.renderPostContainer(classes, imageClasses)}
         </div>
       </div>
     );

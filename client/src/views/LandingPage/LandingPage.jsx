@@ -3,6 +3,9 @@ import React from "react";
 import classNames from "classnames";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import Loading from "../../components/Loading";
 
 // @material-ui/icons
 
@@ -20,16 +23,56 @@ import landingPageStyle from "../../assets/jss/material-kit-react/views/landingP
 // Sections for this page
 import PostItemSection from "./Sections/PostItemSection.jsx";
 
-const dashboardRoutes = [];
+const GET_POSTS_LIST = gql`
+  {
+    posts {
+      edges {
+        id
+        title
+        description
+        image
+        createdAt
+        tags {
+          id
+          name
+        }
+      }
+      postInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`
 
 class LandingPage extends React.Component {
+
+  renderLoadingOrPostItem = (classes, loading, data, error) => {
+    if (loading && !data.posts) {
+      return (
+      <div className={classes.container}>
+        <Loading is Center={true} />
+      </div>        
+      )
+    } else {
+      return (
+      <div className={classes.container}>
+        <PostItemSection data={data} error={error}/>
+      </div>
+      )
+    }
+  }
+
   render() {
     const { classes, ...rest } = this.props;
     return (
+      <Query
+        query={GET_POSTS_LIST}
+        notifyOnNetworkStatusChange={true}>
+      {({ data, loading, error }) => (
       <div>
         <Header
           color="transparent"
-          routes={dashboardRoutes}
           brand="George Fang"
           rightLinks={<HeaderLinks />}
           fixed
@@ -55,9 +98,7 @@ class LandingPage extends React.Component {
           </div>
         </Parallax>
         <div className={classNames(classes.main, classes.mainRaised)}>
-          <div className={classes.container}>
-            <PostItemSection />
-          </div>
+          {this.renderLoadingOrPostItem(classes, loading, data, error)}
           <div className={classes.pagination}>
             <Paginations
               pages={[
@@ -75,6 +116,9 @@ class LandingPage extends React.Component {
         </div>
         <Footer />
       </div>
+      )}
+      </Query>
+
     );
   }
 }
