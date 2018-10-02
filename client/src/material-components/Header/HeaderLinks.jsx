@@ -18,6 +18,7 @@ import { ApolloConsumer } from 'react-apollo';
 import headerLinksStyle from "../../assets/jss/material-kit-react/components/headerLinksStyle.jsx";
 import { signOut } from "../../components/SignOut";
 import withSession from "../../components/Session/withSession";
+import withTagSession from "../../components/Session/withTagSession";
 import * as routes from "../../constants/routes"
 
 const HeaderLinks = ({ session }) => (
@@ -29,14 +30,15 @@ const HeaderLinks = ({ session }) => (
       )}    
   </div>
 )
-const HeaderLinksNonAuth = withStyles(headerLinksStyle)(HeaderLinksBeforeAuth)
 
 function HeaderLinksBeforeAuth({ ...props }) {
-  const { classes } = props;
+  const { classes, data } = props;
+  console.log("data from link drowdown", data)
+
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
-        <CustomDropdown
+      <CustomDropdown
           noLiPadding
           buttonText="Category"
           buttonProps={{
@@ -44,17 +46,15 @@ function HeaderLinksBeforeAuth({ ...props }) {
             color: "transparent"
           }}
           buttonIcon={Apps}
-          dropdownList={[
-            <Link to="/" className={classes.dropdownLink}>
-              React
-            </Link>,
-            <Link to="/" className={classes.dropdownLink}>
-            Javascript
-          </Link>,
-            <Link to="/" className={classes.dropdownLink}>
-            Python
-          </Link>,
-          ]}
+          dropdownList={
+            data.tags.map((tag) => (
+              <React.Fragment key={tag.id}>
+                <Link to={`/filter/${tag.name}`} className={classes.dropdownLink}>
+                  {tag.name}
+                </Link>
+              </React.Fragment>
+            ))
+          }
         />
       </ListItem>
       <ListItem className={classes.listItem}>
@@ -74,7 +74,7 @@ function HeaderLinksBeforeAuth({ ...props }) {
           classes={{ tooltip: classes.tooltip }}
         >
           <Button
-            href="#"
+            href="https://github.com/Azrealy"
             target="_blank"
             color="transparent"
             className={classes.navLink}
@@ -92,7 +92,7 @@ function HeaderLinksBeforeAuth({ ...props }) {
         >
           <Button
             color="transparent"
-            href="#"
+            href="https://www.facebook.com/profile.php?id=100006119539058"
             target="_blank"
             className={classes.navLink}
           >
@@ -120,6 +120,8 @@ function HeaderLinksBeforeAuth({ ...props }) {
     </List>
   );
 }
+
+const HeaderLinksNonAuth = withStyles(headerLinksStyle)(withTagSession(HeaderLinksBeforeAuth))
 
 const HeaderLinksAuth = withStyles(headerLinksStyle)(HeaderLinksAfterAuth)
 

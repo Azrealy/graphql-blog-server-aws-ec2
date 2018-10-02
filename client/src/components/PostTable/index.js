@@ -27,7 +27,6 @@ const PostTablePage = () => (
         notifyOnNetworkStatusChange={true}
     >
         {({ data, loading, error }) => {
-            console.log("data ", data)
             if (loading && !data.posts) {
                 return <Loading isCenter={true} />;
             }

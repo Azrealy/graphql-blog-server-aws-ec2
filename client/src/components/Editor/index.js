@@ -89,6 +89,13 @@ class ReactMdeDemo extends React.Component {
     });
   }
 
+  onPreventEnter = event => {
+    if (event.key === 'Enter') {
+      console.log(event)
+      event.preventDefault()
+    }
+  }
+
   onChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
@@ -156,6 +163,7 @@ class ReactMdeDemo extends React.Component {
           label="Input your post title"
           className={classes.textField}
           value={title}
+          onKeyPress={(e) => this.onPreventEnter(e)}
           onChange={(e) => this.onChange(e)}
           name="title"
           fullWidth
@@ -169,6 +177,7 @@ class ReactMdeDemo extends React.Component {
           id="filled-name"
           label="Input your image url"
           className={classes.textField}
+          onKeyPress={(e) => this.onPreventEnter(e)}
           value={image}
           name="image"
           onChange={(e) => this.onChange(e)}
@@ -190,8 +199,10 @@ class ReactMdeDemo extends React.Component {
       {this.props.tags.map((tag) => (
         <React.Fragment key={tag.id}>
           <FormControlLabel
+            
             control={
               <Checkbox
+                onKeyPress={(e) => this.onPreventEnter(e)}
                 checked={tagIds.includes(tag.id)}
                 name={tag.name}
                 value={tag.id}
@@ -203,7 +214,7 @@ class ReactMdeDemo extends React.Component {
           />
         </React.Fragment>
       ))}
-      <AddTag refetch={this.props.refetch} />
+      <AddTag refetch={this.props.refetch} onPreventEnter={this.onPreventEnter}/>
       <h3>Content</h3>
       <ReactMde
         layout="horizontal"
@@ -236,7 +247,7 @@ class ReactMdeDemo extends React.Component {
       data: {
         posts: {
           edges: R.append(posts, createPost),
-          __typename: 'PostConnection'
+          __typename: 'PostConnection'      
         } 
       },
     })
@@ -247,7 +258,6 @@ class ReactMdeDemo extends React.Component {
       id: `Post:${id}`,
       fragment: POST_FRAGMENT
     });
-    console.log("Update post ", post)
   }
 
   render() {
@@ -256,7 +266,6 @@ class ReactMdeDemo extends React.Component {
     const description = this.state.descriptionState.markdown
     const content = this.state.contentState.markdown
     const isInvalid = title === '' || image === '' || description === '' || content === '' || tagIds.length === 0
-    console.log("State of editor", this.state)
     if (isUpdate) {
       return (
       <div>

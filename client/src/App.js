@@ -3,7 +3,7 @@ import LoginPage from "./views/LoginPage/LoginPage";
 import LandingPage from "./views/LandingPage/LandingPage"
 import PostPage from "./views/PostPage/PostPage";
 import ContentManagerPage from "./views/ContentManagerPage/ContentManagerPage";
-import { Router, Route } from 'react-router-dom';
+import { Router, Route, Redirect } from 'react-router-dom';
 import SignInPage from "./components/SignIn";
 import PostTablePage from "./components/PostTable";
 import withSession from './components/Session/withSession';
@@ -18,7 +18,19 @@ const HeavyApp = ({ session, refetch }) => (
       <Route
         exact
         path={routes.LANDING}
-        component={() => <LandingPage />}
+        component={() => <Redirect to="/posts"/>}
+      />
+
+      <Route
+        exact
+        path="/posts"
+        component={() => <LandingPage/>}
+      />
+
+
+      <Route
+        path="/filter/:type"
+        component={LandingPage}
       />
 
       <Route

@@ -25,36 +25,16 @@ function Footer({ ...props }) {
     <footer className={footerClasses}>
       <div className={classes.container}>
         <div className={classes.left}>
-          <List className={classes.list}>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="#"
-                className={classes.block}
-                target="_blank"
-              >
-                About me
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="#"
-                className={classes.block}
-                target="_blank"
-              >
-                Blog
-              </a>
-            </ListItem>
-          </List>
         </div>
         <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} , made with{" "}
+          &copy; {1900 + new Date().getYear()} , created with{" "}
           <Favorite className={classes.icon} /> by{" "}
           <a
-            href="#"
+            href="https://github.com/Azrealy/graphql-server"
             className={aClasses}
             target="_blank"
           >
-            George
+            George Fang
           </a>{" "}
         </div>
       </div>

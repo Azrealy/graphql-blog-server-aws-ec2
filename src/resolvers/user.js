@@ -42,7 +42,6 @@ export default {
             email,
             password
         })
-        console.log('secret '+ secret)
         return { token: createToken(user, secret, '30m') }
     },
     signIn: async (

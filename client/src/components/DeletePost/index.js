@@ -23,7 +23,7 @@ class DeletePost extends React.Component {
 
     onClick = (event, deletePost) => {
         deletePost().then(async ({data}) => {
-            console.log(data)
+            
         })
         event.preventDefault();
     }
@@ -40,7 +40,7 @@ class DeletePost extends React.Component {
       ${POST_FRAGMENT}
     `
     const { posts } = client.readQuery({ query })
-    console.log("posts in the deletpost", posts)
+
     client.writeQuery({
         query,
         data: {

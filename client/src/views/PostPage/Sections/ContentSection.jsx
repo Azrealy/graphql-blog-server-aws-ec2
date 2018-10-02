@@ -22,7 +22,6 @@ class ContentSection extends React.Component {
 
   render() {
     const { classes, post } = this.props;
-    console.log(post)
     const imageClasses = classNames(
       classes.imgRaised,
       classes.imgRounded,

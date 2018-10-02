@@ -27,7 +27,6 @@ const Post = (props) => {
             variables={{ id: props.match.params.number}}>
             {({data, loading, error}) => {
                 const { post } = data
-                console.log("post", post)
                 if (loading && !post) {
                     return <Loading isCenter={true} />;
                 }

@@ -6,10 +6,11 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Loading from "../../components/Loading";
-
+import Warning from "@material-ui/icons/Warning";
 // @material-ui/icons
 
 // core components
+import SnackbarContent from "../../material-components/Snackbar/SnackbarContent.jsx";
 import Header from "../../material-components/Header/Header.jsx";
 import Footer from "../../material-components/Footer/Footer.jsx";
 import GridContainer from "../../material-components/Grid/GridContainer.jsx";
@@ -20,11 +21,10 @@ import landingPageStyle from "../../assets/jss/material-kit-react/views/landingP
 
 // Sections for this page
 import PostItemSection from "./Sections/PostItemSection.jsx";
-import post from "../../../../src/models/post";
 
 const GET_POSTS_LIST = gql`
-  query($cursor: String, $limit: String){
-    posts(cursor: $cursor, limit: $limit) {
+  query($forward: Boolean, $cursor: String, $limit: Int){
+    posts(forward: $forward, cursor: $cursor, limit: $limit) {
       edges {
         id
         title
@@ -38,6 +38,7 @@ const GET_POSTS_LIST = gql`
       }
       postInfo {
         hasNextPage
+        startCursor
         endCursor
       }
     }
@@ -46,53 +47,46 @@ const GET_POSTS_LIST = gql`
 
 class LandingPage extends React.Component {
 
-  state = {
-    hasNextPage: true,
-    endCursor: "",
-    cursor: "",
-    limit: 5,
-    pageId: 1,
-  }
 
-  renderLoadingOrPostItem = (classes, loading, data, error) => {
+  renderLoadingOrPostItem = (classes, loading, data, error, fetchMore, filterType) => {
     if (loading && !data.posts) {
       return (
       <div className={classes.container}>
-        <Loading is Center={true} />
+        <Loading isCenter={true} />
       </div>        
+      )
+    } 
+    if ((data && data.posts.edges.length !== 0)) {
+      const { posts } = data
+      return (
+      <div className={classes.container}>
+        <PostItemSection posts={posts} loading={loading} fetchMore={fetchMore} filterType={filterType}/>
+      </div>
       )
     } else {
       return (
-      <div className={classes.container}>
-        <PostItemSection data={data} error={error}/>
-      </div>
-      )
+        <SnackbarContent
+          message={
+            <span>
+              <b>WARNING ALERT:</b> Post like disappeared! Try to refresh your browser!
+            </span>}
+          close
+          color="warning"
+          icon={Warning} />
+        )
     }
-  }
-
-  onChickPage = (refetch, posts, cursor, chickId) => {
-    if (chickId === "NEXT") {
-      this.setState({
-        hasNextPage: posts.postInfo.hasNextPage,
-        endCursor: posts.postInfo.endCursor})
-      await refetch()
-    } if (chickId === "OLD") {
-      this.setState({
-        hasNextPage: posts.postInfo.hasNextPage, 
-        cursor: this.state.cursor,})
-        await refetch();
-    }
-    await refetch();
   }
 
   render() {
-    const { classes, ...rest } = this.props;
+    const { classes, match, ...rest } = this.props;
+    const filterType = match ? match.params.type: null
+
     return (
       <Query
         query={GET_POSTS_LIST}
-        variables={{cursor, limit}}
+        variables={{forward: false, cursor: "", limit: 5}}
         notifyOnNetworkStatusChange={true}>
-      {({ data, loading, error, refetch }) => (
+      {({ data, loading, error,fetchMore }) => (
       <div>
         <Header
           color="transparent"
@@ -121,7 +115,7 @@ class LandingPage extends React.Component {
           </div>
         </Parallax>
         <div className={classNames(classes.main, classes.mainRaised)}>
-          {this.renderLoadingOrPostItem(classes, loading, data, error)}
+          {this.renderLoadingOrPostItem(classes, loading, data, error, fetchMore, filterType)}
         </div>
         <Footer />
       </div>

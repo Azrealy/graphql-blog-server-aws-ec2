@@ -28,14 +28,14 @@ class AddTag extends React.Component {
     addTag().then(async ({data}) => {
       this.setState({ name: '' })
       await this.props.refetch()
-      console.log(data.addTag.name)
+
     })
     event.preventDefault()
   }
 
   render() {
     const { name } = this.state
-    console.log(name)
+
     return (
       <Mutation
         mutation={ADD_TAG}
@@ -47,6 +47,7 @@ class AddTag extends React.Component {
 
           <input
             value={name}
+            onKeyPress={(e) => this.props.onPreventEnter(e)}
             onChange={this.onChange}
             type="text"
             />
