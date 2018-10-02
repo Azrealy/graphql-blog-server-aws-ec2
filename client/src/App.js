@@ -2,6 +2,7 @@ import React from 'react'
 import LoginPage from "./views/LoginPage/LoginPage";
 import LandingPage from "./views/LandingPage/LandingPage"
 import PostPage from "./views/PostPage/PostPage";
+import ProfilePage from "./views/ProfilePage/ProfilePage";
 import ContentManagerPage from "./views/ContentManagerPage/ContentManagerPage";
 import { Router, Route, Redirect } from 'react-router-dom';
 import SignInPage from "./components/SignIn";
@@ -49,6 +50,7 @@ const HeavyApp = ({ session, refetch }) => (
         path={routes.EDITOR_MANAGER}
         component={() => <ContentEditorPage refetch={refetch} />}
       />
+      <Route path="/profile" component={ProfilePage}/>
       <Route
         path='/posts/:hash'
         component={PostPage} />

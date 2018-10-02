@@ -27,8 +27,7 @@ function Footer({ ...props }) {
         <div className={classes.left}>
         </div>
         <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} , created with{" "}
-          <Favorite className={classes.icon} /> by{" "}
+          &copy; {1900 + new Date().getYear()} , created by
           <a
             href="https://github.com/Azrealy/graphql-server"
             className={aClasses}
