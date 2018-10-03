@@ -7,18 +7,13 @@ import ReactMarkdown from "react-markdown";
 // core components
 import GridContainer from "../../../material-components/Grid/GridContainer.jsx";
 import GridItem from "../../../material-components/Grid/GridItem.jsx";
-import InfoArea from "../../../material-components/InfoArea/InfoArea.jsx";
 import contentStyle from "../../../assets/jss/material-kit-react/views/landingPageSections/contentStyle.jsx";
 import Typography from '@material-ui/core/Typography';
+import codeRenderer from './code-renderer';
 
-
-const hljs = window.hljs
 
 class ContentSection extends React.Component {
 
-  constructor(props) {
-    super(props)
-  }
 
   render() {
     const { classes, post } = this.props;
@@ -28,26 +23,20 @@ class ContentSection extends React.Component {
       classes.imgFluid
     );
     const source = post.content
-    const code = {
-      code: (props) => {
-        return (
-          <pre >
-            <code className={`language-${props.language}`}>
-              {props.value}
-            </code>
-          </pre>
-        )
-    },
-  }
     return (
       <div className={classes.section}>
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={8}>
           <img src={post.image} alt="..." className={imageClasses} />
-            <ReactMarkdown renderers={code} className={classes.description} source={source}/>
+            <ReactMarkdown
+              source={source}
+              renderers={{
+                  code: codeRenderer,
+              }}
+            />
             <Typography className={classes.description} component="a">
               This is the paragraph where you can write more details about your
-              product. <a href='#'>Keep you user</a> engaged by providing meaningful
+              product. engaged by providing meaningful
               information. Remember that by this time, the user is curious,
               otherwise he wouldn't scroll to get here. Add a button if you want
               the user to see more.

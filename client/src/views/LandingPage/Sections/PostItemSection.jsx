@@ -3,19 +3,19 @@ import React ,{ Fragment }from "react";
 import classNames from "classnames";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import Warning from "@material-ui/icons/Warning";
+
 // @material-ui/icons
 import{ Link } from "react-router-dom";
 // core components
-import * as R from "ramda";
+
 import Badge from "../../../material-components/Badge/Badge.jsx";
 import GridContainer from "../../../material-components/Grid/GridContainer.jsx";
 import GridItem from "../../../material-components/Grid/GridItem.jsx";
-import Button from "../../../material-components/CustomButtons/Button.jsx";
+
 import FetchMore from "../../../components/FetchMore";
-import Paginations from "../../../material-components/Pagination/Pagination.jsx";
+
 import postItemStyle from "../../../assets/jss/material-kit-react/views/landingPageSections/postItemStyle.jsx";
-import SnackbarContent from "../../../material-components/Snackbar/SnackbarContent.jsx";
+
 
 const toIdHash = string => Buffer.from(string).toString('base64');
 
@@ -50,7 +50,7 @@ class PostItemSection extends React.Component {
           if (tag.length) {
             return true
           } else {
-            false
+            return false
           }
         }).map(
           (post) =>  {
@@ -74,11 +74,17 @@ class PostItemSection extends React.Component {
                     <h5 className={classes.description}>
                       {post.description}
                       </h5>
-                      <h5 className={classes.smallTitle}>
-                        Tag: {post.tags.map(({ id, name }) => (
-                          <Fragment key={id}><Badge color="primary" >#{name}</Badge></Fragment>
+
+                        {post.tags.map(({ id, name }) => (
+                          <Fragment key={id}>
+                            <h5 className={classes.smallTitle}>
+                            <Link to={`/filter/${name}`} className={classes.link}>
+                              #{name}
+                            </Link>
+                            </h5>
+                        </Fragment>
                         ))}
-                      </h5>
+
                       <h5 className={classes.smallTitle}> Created by George at {data.toDateString()}</h5>
                 </GridItem>
               </GridContainer>

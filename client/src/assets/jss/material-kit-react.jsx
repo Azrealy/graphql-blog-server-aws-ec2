@@ -179,8 +179,18 @@ const cardSubtitle = {
   marginTop: "-.375rem"
 };
 
+const code = {
+  background: "#eee",
+  padding: "0.5px",
+};
+
+const pre = {
+  display: "block",
+};
 export {
   //variables
+  code,
+  pre,
   drawerWidth,
   transition,
   container,

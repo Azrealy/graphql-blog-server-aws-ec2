@@ -78,9 +78,7 @@ class PostPage extends React.PureComponent {
         </div>
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
-        <div className={classes.container}>
           <ContentSection post={post} />
-        </div>
       </div>
       </Fragment>
     )

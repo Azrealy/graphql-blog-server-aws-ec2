@@ -16,8 +16,8 @@ const withAuthorization = conditionFn => Component => props => (
         return <Component {...props} />
       } else {
         alert("you dont have the permission to edit contents.")
-        return <Redirect to={routes.LOGIN} />
       };
+      return <Redirect to={routes.LOGIN} />
     }}
   </Query>
 );

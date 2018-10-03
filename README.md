@@ -43,7 +43,7 @@ A full-fledged Apollo Server 2 with Apollo Client 2 blog app with React, Express
 
 #### .env file
 
-```
+```javascript
 // If database not set that will use the sqlite3
 DATABASE=mydatabase
 DATABASE_USER=postgres

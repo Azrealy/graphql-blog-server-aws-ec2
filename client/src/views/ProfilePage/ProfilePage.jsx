@@ -66,7 +66,7 @@ class ProfilePage extends React.Component {
                     </div>
                     <div className={classes.name}>
                       <h3 className={classes.title}>George Fang</h3>
-                      <h4 className={classes.title}>A Tiny Software Engineer</h4>
+                      <h4 className={classes.description}>A Tiny Software Engineer</h4>
                       <Button justIcon link className={classes.margin5}>
                         <i className={"fab fa-twitter"} />
                       </Button>

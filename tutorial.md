@@ -88,7 +88,7 @@ const tweet = (sequelize, DataTypes) => {
 export default tweet;
 ```
 Furthermore, the associate property is used to create relations between models. Whereas an Author can have multiple Tweets, a Tweet belongs to only one Author. For dive deeper into these things by reading up the [Sequelize documentation](http://docs.sequelizejs.com/). Then create a `src/models/index.js` file, you import and combine those models and resolve their associations by using the Sequelize API:
-```js
+```javascript
 import Sequelize from 'sequelize';
 
 const sequelize = new Sequelize('twitter', 'postgres', 'postgres', {
@@ -174,3 +174,56 @@ app.listen({ port: 8000 }, () => {
   console.log('Apollo Server on http://localhost:8000/graphql');
 });
 ```
+
+# Live demo
+
+Changes are automatically rendered as you type.
+
+* Implements [GitHub Flavored Markdown](https://github.github.com/gfm/)
+* Renders actual, "native" React DOM elements
+* Allows you to escape or skip HTML (try toggling the checkboxes above)
+* If you escape or skip the HTML, no `dangerouslySetInnerHTML` is used! Yay!
+
+## HTML block below
+
+<blockquote>
+  This blockquote will change based on the HTML settings above.
+</blockquote>
+
+## How about some code?
+```js
+var React = require('react');
+var Markdown = require('react-markdown');
+
+React.render(
+  <Markdown source="# Your markdown here" />,
+  document.getElementById('content')
+);
+```
+
+```js
+var React = require('react');
+var Markdown = require('react-markdown');
+
+React.render(
+  <Markdown source="# Your markdown here" />,
+  document.getElementById('content')
+);
+```
+Pretty neat, eh?
+
+## Tables?
+
+| Feature | Support |
+| ------ | ----------- |
+| tables | ✔ |
+| alignment | ✔ |
+| wewt | ✔ |
+
+## More info?
+
+Read usage information and more on [GitHub](//github.com/rexxars/react-markdown)
+
+---------------
+
+A component by [VaffelNinja](http://vaffel.ninja) / Espen Hovlandsdal

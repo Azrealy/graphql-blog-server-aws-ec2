@@ -1,50 +1,25 @@
 import 'dotenv/config';
 import React from "react";
 import { render } from "react-dom";
-import { Router, Route } from 'react-router-dom';
 import "react-mde/lib/styles/css/react-mde-all.css";
 import "./style.css";
 import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
-import { ApolloLink, split } from "apollo-link";
+import { ApolloLink } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
-import { WebSocketLink } from "apollo-link-ws";
 import { onError } from "apollo-link-error";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { signOut } from "./components/SignOut";
 import registerServiceWorker from './registerServiceWorker';
 
-//import App from "./components/App";
 import App from "./App";
-
-import * as routes from './constants/routes';
-import history from './constants/history';
 
 
 const httpLink = new HttpLink({
   uri: 'http://192.168.10.10:8000/graphql',
 })
 
-/* const wsLink = new WebSocketLink({
-  uri: `ws://localhost:8000/graphql`,
-  options: {
-    reconnect: true,
-  }
-}) */
 
-// When the operation is subscription, split the Websocket link and http Link.
-/* const terminatingLink = split(
-  ({ query }) => {
-    const { kind, operation } = getMainDefinition(query);
-    return (
-      kind === 'OperationDefinition' && operation === 'subscription'
-    );
-  },
-  wsLink,
-  httpLink,
-); */
-
-// Set token header before every Link.
 const authLink = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => {
     const token = localStorage.getItem('token')

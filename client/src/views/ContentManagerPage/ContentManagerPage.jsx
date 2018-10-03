@@ -1,9 +1,7 @@
 import React from "react";
 // nodejs library that concatenates classes
-import classNames from "classnames";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import Loading from "../../components/Loading";
 import PostTable from "../../components/PostTable";
 // @material-ui/icons
 

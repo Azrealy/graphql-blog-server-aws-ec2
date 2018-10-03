@@ -5,8 +5,6 @@ import PostPage from "./views/PostPage/PostPage";
 import ProfilePage from "./views/ProfilePage/ProfilePage";
 import ContentManagerPage from "./views/ContentManagerPage/ContentManagerPage";
 import { Router, Route, Redirect } from 'react-router-dom';
-import SignInPage from "./components/SignIn";
-import PostTablePage from "./components/PostTable";
 import withSession from './components/Session/withSession';
 import ContentEditorPage from "./components/ContentManager";
 

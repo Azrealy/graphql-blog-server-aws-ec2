@@ -69,7 +69,7 @@ class DeletePost extends React.Component {
                 >
                 {(deletePost, { data, loading, error }) => (
                     <Fragment>
-                    <Button variant= "contained"
+                    <Button
                         buttonRef={node => {
                             this.anchorEl = node;
                         }}

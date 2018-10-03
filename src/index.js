@@ -11,6 +11,7 @@ import schema from './schema';
 import resolvers from './resolvers';
 import models, { sequelize } from './models';
 import loaders from './loaders';
+import fs from "fs";
 
 const app = express();
 
@@ -93,14 +94,7 @@ sequelize.sync({ force: isTest || isProduction }).then(async () => {
   });
 });
 
-const dummyBlog = `# Sample blog post
-
-#### April 1, 2020 by Olivier
-
-This blog post shows a few different types of content that are supported and styled with
-Material styles. Basic typography, images, and code are all supported.
-You can extend these by modifying \`Mardown.js\`.
-`
+var content = fs.readFileSync('./tutorial.md', 'utf8');
 
 const createUsersWithMessages = async date => {
   await models.Tag.create({
@@ -114,7 +108,7 @@ const createUsersWithMessages = async date => {
       title: 'This is test post',
       description: 'This is the first post description',
       image: "https://cdn.stocksnap.io/img-thumbs/960w/VCIZS7BTXZ.jpg",
-      content: dummyBlog,
+      content: content,
       createdAt: date.setSeconds(date.getSeconds() + 1),
     }
   )
@@ -125,7 +119,7 @@ const createUsersWithMessages = async date => {
       title: 'This is second test post',
       description: 'This is the first post description',
       image: "https://cdn.stocksnap.io/img-thumbs/960w/CPZ4W8T1AT.jpg",
-      content: dummyBlog,
+      content: content,
       createdAt: date.setSeconds(date.getSeconds() + 1)
     }
   )

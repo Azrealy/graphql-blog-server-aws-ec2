@@ -1,5 +1,5 @@
 import React from "react";
-import ReactMde, { DraftUtil } from "react-mde";
+import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -185,7 +185,7 @@ class ReactMdeDemo extends React.Component {
           margin="normal"
           variant="filled"
         />
-        <img src={image} alt="No picture"/>
+        <img src={image} alt="..."/>
       </div>
       <h3>Description</h3>
         <ReactMde
@@ -253,12 +253,7 @@ class ReactMdeDemo extends React.Component {
     })
   }
 
-  updatePost = (client, { data: { updatePost:{ id }} }) => {
-    const post = client.readFragment({
-      id: `Post:${id}`,
-      fragment: POST_FRAGMENT
-    });
-  }
+
 
   render() {
     const { classes, isUpdate, id , ...rest} = this.props
@@ -277,8 +272,7 @@ class ReactMdeDemo extends React.Component {
             description: description, 
             image: image, 
             content: content, 
-            tags: tagIds}}
-          update={this.updatePost}>
+            tags: tagIds}}>
           {(updatePost, { data, loading, error }) => (
             <form onSubmit={event => this.onUpdateSubmit(event, updatePost)} >
               {this.inputForm(classes, loading, title, image, tagIds, isInvalid)}

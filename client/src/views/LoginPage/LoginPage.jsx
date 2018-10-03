@@ -2,9 +2,9 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
+
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
+
 import IconButton from '@material-ui/core/IconButton';
 import People from "@material-ui/icons/People";
 import Visibility from '@material-ui/icons/Visibility';
@@ -29,11 +29,10 @@ import loginPageStyle from "../../assets/jss/material-kit-react/views/loginPage"
 import image from "../../assets/img/landing-bg.jpg";
 
 import * as routes from "../../constants/routes";
-import { withRouter } from 'react-router-dom';
+
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import ErrorMessage from '../../components/Error';
 
 const LOGIN = gql`
   mutation($login: String!, $password: String!) {
