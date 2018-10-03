@@ -6,9 +6,9 @@
   "scripts": {
     "test-server": "npm start",
     "test": "mocha --require babel-core/register 'src/**/*.spec.js'",
-    "client": "cd client && yarn start",
+    "client": "cd client && npm start",
     "start": "nodemon --exec babel-node --presets env,stage-2 src/index.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn start\" \"yarn client\""
+    "dev": "concurrently --kill-others-on-fail \"npm run start\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
