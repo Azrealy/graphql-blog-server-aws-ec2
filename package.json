@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node --presets env,stage-2 src/index.js",
     "test-server": "npm start",
     "test": "mocha --require babel-core/register 'src/**/*.spec.js'",
     "client": "cd client && yarn start",
     "server": "nodemon --exec babel-node --presets env,stage-2 src/index.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "keywords": [],
   "author": "",
