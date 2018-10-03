@@ -65,7 +65,7 @@ class PostPage extends React.PureComponent {
     }
     return (
       <Fragment>
-      <Parallax filter image={require("../../assets/img/landing-bg.jpg")}>
+        <Parallax filter image={"https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/41866278_1724910144274490_2603751269533220864_o.jpg?_nc_cat=105&oh=e81c0227d12f70d40fc04b3dabfa2d60&oe=5C23F1CD"}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>

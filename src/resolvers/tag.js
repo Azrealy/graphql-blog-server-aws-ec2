@@ -23,8 +23,7 @@ export default {
         deleteTag: combineResolvers(
             isAdmin,
             async (parent, { id }, { models }) => {
-                const tag = await models.Tag.findById(id);
-                return await tag.destroy()
+              return await models.Tag.destroy({ where: { id } })
             }
         )
     },

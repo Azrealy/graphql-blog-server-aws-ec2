@@ -33,7 +33,6 @@ const HeaderLinks = ({ session }) => (
 
 function HeaderLinksBeforeAuth({ ...props }) {
   const { classes, data } = props;
-  console.log("data from link drowdown", data)
 
   return (
     <List className={classes.list}>
@@ -109,7 +108,7 @@ function HeaderLinksBeforeAuth({ ...props }) {
         >
           <Button
             color="transparent"
-            href="#"
+            href="https://www.instagram.com/george_fang_kh/"
             target="_blank"
             className={classes.navLink}
           >

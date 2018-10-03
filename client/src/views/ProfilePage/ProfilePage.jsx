@@ -54,7 +54,7 @@ class ProfilePage extends React.Component {
           }}
           {...rest}
         />
-        <Parallax small filter image={require("../../assets/img/profile-bg.jpg")} />
+        <Parallax small filter image={"https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/41221502_1713951042037067_1911415619593437184_o.jpg?_nc_cat=100&oh=58ad6db56089821fd5d8b9d26d037de3&oe=5C562F7E"} />
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div>
             <div className={classes.container}>

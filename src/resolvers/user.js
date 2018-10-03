@@ -32,18 +32,6 @@ export default {
             where: {id},
         })
     }),
-    signUp: async (
-        parent,
-        { username, email, password },
-        { models, secret },
-    ) => {
-        const user = await models.User.create({
-            username,
-            email,
-            password
-        })
-        return { token: createToken(user, secret, '30m') }
-    },
     signIn: async (
         parent,
         { login, password },
@@ -62,14 +50,5 @@ export default {
         } 
         return { token: createToken(user, secret, '30m')}
     }
-  },
-  User: {
-    messages: async (user, args, { models }) => {
-      return await models.Message.findAll({
-          where:{
-              userId: user.id,
-          }
-      })
-    },
   },
 };

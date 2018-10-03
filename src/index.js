@@ -94,32 +94,34 @@ sequelize.sync({ force: isTest || isProduction }).then(async () => {
   });
 });
 
-var content = fs.readFileSync('./tutorial.md', 'utf8');
+var webpackContent = fs.readFileSync('./webpack-post.md', 'utf8');
+var tornadoContent = fs.readFileSync('./tornado-post.md', 'utf8');
 
 const createUsersWithMessages = async date => {
   await models.Tag.create({
-    name: "javascript"
+    name: "python"
   })
   await models.Tag.create({
-    name: "react"
+    name: "webpack"
   })
+
   const post1 = await models.Post.create(
     {
-      title: 'This is test post',
-      description: 'This is the first post description',
-      image: "https://cdn.stocksnap.io/img-thumbs/960w/VCIZS7BTXZ.jpg",
-      content: content,
+      title: 'Webpack 4 tutorial',
+      description: 'Webpack 4 has **a massive performance improvement** as zero configure module bundler.',
+      image: "https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/42090761_1727426667356171_3308341453305937920_o.jpg?_nc_cat=110&oh=67b704d0607d274c8066aa8926689835&oe=5C5D6B55",
+      content: webpackContent,
       createdAt: date.setSeconds(date.getSeconds() + 1),
     }
   )
-  await post1.setTags([1])
+  await post1.setTags([2])
 
   const post2 = await models.Post.create(
     {
-      title: 'This is second test post',
-      description: 'This is the first post description',
-      image: "https://cdn.stocksnap.io/img-thumbs/960w/CPZ4W8T1AT.jpg",
-      content: content,
+      title: 'Deep understanding python asynchronous programming of tornado',
+      description: 'Thoroughly understand what, why, and how asynchronous programming is. And learning the basic concept of`tornado` asynchronous programming.',
+      image: "https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/41026193_1712817715483733_4509720973674545152_o.jpg?_nc_cat=101&oh=8f4a327f0a5ac4cc4f1309bbeebc0be8&oe=5C226087",
+      content: tornadoContent,
       createdAt: date.setSeconds(date.getSeconds() + 1)
     }
   )
@@ -127,40 +129,18 @@ const createUsersWithMessages = async date => {
 
   await models.User.create(
     {
-      username: 'k-fang',
-      email: 'k-fang@yahoo.co.jp',
+      username: 'aliceice',
+      email: 'fangkaihang1992@yahoo.co.jp',
       password: '1234qwer',
       role: 'ADMIN',
-      messages: [
-        {
-          text: 'Published the Road to learn React',
-          createdAt: date.setSeconds(date.getSeconds() + 1),
-        },
-      ],
-    },
-    {
-      include: [models.Message],
     },
   );
 
   await models.User.create(
     {
-      username: 'alice',
+      username: 'backupaccount',
       email: 'aliceworld@david.com',
-      password: '1234qwer',
-      messages: [
-        {
-          text: 'Happy to release a GraphQL in React tutorial',
-          createdAt: date.setSeconds(date.getSeconds() + 1),
-        },
-        {
-          text: 'A complete React with Apollo and GraphQL Tutorial',
-          createdAt: date.setSeconds(date.getSeconds() + 1),
-        },
-      ],
-    },
-    {
-      include: [models.Message],
+      password: 'alice1234',
     },
   );
 };

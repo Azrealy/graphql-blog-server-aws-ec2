@@ -9,6 +9,7 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import * as R from "ramda";
 import AddTag from "./addTagButton";
+import DeleteTag from "./deleteTagButton";
 import POST_FRAGMENT from "../../constants/fragments";
 import * as routes from '../../constants/routes';
 import ErrorMessage from '../Error';
@@ -91,7 +92,6 @@ class ReactMdeDemo extends React.Component {
 
   onPreventEnter = event => {
     if (event.key === 'Enter') {
-      console.log(event)
       event.preventDefault()
     }
   }
@@ -212,8 +212,10 @@ class ReactMdeDemo extends React.Component {
             }
             label={tag.name}
           />
+          <DeleteTag id={tag.id} />
         </React.Fragment>
       ))}
+        <h3>Add tags</h3>
       <AddTag refetch={this.props.refetch} onPreventEnter={this.onPreventEnter}/>
       <h3>Content</h3>
       <ReactMde

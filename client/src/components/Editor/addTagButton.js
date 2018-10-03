@@ -40,11 +40,10 @@ class AddTag extends React.Component {
       <Mutation
         mutation={ADD_TAG}
         variables={{ name: name }}
-        update={this.addTagUpdate}
         >
         {(addTag, {data, loading, error}) => (
           <div>
-
+          
           <input
             value={name}
             onKeyPress={(e) => this.props.onPreventEnter(e)}

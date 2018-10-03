@@ -8,7 +8,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import{ Link } from "react-router-dom";
 // core components
 
-import Badge from "../../../material-components/Badge/Badge.jsx";
 import GridContainer from "../../../material-components/Grid/GridContainer.jsx";
 import GridItem from "../../../material-components/Grid/GridItem.jsx";
 
@@ -114,11 +113,15 @@ class PostItemSection extends React.Component {
                 <h5 className={classes.description}>
                   {post.description}
                   </h5>
-                  <h5 className={classes.smallTitle}>
-                    Tag: {post.tags.map(({ id, name }) => (
-                      <Fragment key={id}><Badge color="primary" >#{name}</Badge></Fragment>
-                    ))}
-                  </h5>
+                  {post.tags.map(({ id, name }) => (
+                    <Fragment key={id}>
+                      <h5 className={classes.smallTitle}>
+                        <Link to={`/filter/${name}`} className={classes.link}>
+                          #{name}
+                        </Link>
+                      </h5>
+                    </Fragment>
+                  ))}
                   <h5 className={classes.smallTitle}> Created by George at {data.toDateString()}</h5>
             </GridItem>
           </GridContainer>

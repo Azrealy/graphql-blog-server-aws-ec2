@@ -23,7 +23,6 @@ if (process.env.DATABASE) {
 
 const models = {
     User: sequelize.import('./user'),
-    Message: sequelize.import('./message'),
     Tag: sequelize.import('./tag.js'),
     Post: sequelize.import('./post.js'),
     PostTag: sequelize.import('./posttag.js')

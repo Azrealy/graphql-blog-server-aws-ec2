@@ -11,7 +11,7 @@ export default gql`
             name: String!
         ): Tag
         deleteTag (
-            id: Int!
+            id: ID!
         ): Boolean
     }
 
