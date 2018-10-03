@@ -45,32 +45,19 @@ const server = new ApolloServer({
       message,
     };
   },
-  context: async ({ req, connection }) => {
-    if (connection) {
-      return {
-        models,
-        loaders: {
-          user: new DataLoader(keys =>
-            loaders.user.batchUsers(keys, models),
-          ),
-        },
-      };
-    }
+  context: async ({ req }) => {
+    const me = await getMe(req);
 
-    if (req) {
-      const me = await getMe(req);
-
-      return {
-        models,
-        me,
-        secret: process.env.SECRET,
-        loaders: {
-          user: new DataLoader(keys =>
-            loaders.user.batchUsers(keys, models),
-          ),
-        },
-      };
-    }
+    return {
+      models,
+      me,
+      secret: process.env.SECRET,
+      loaders: {
+        user: new DataLoader(keys =>
+          loaders.user.batchUsers(keys, models),
+        ),
+      },
+    };
   },
 });
 
@@ -89,7 +76,6 @@ sequelize.sync({ force: isTest || isProduction }).then(async () => {
   }
 
   httpServer.listen({ port }, () => {
-    console.log(` Subscriptions ready at ws://localhost:${port}${server.subscriptionsPath}`)
     console.log(`Apollo Server on http://localhost:${port}/graphql`);
   });
 });
