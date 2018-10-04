@@ -1,8 +1,9 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Titillium Web', sans-serif
 }
-
-.container {
-  max-width: 600px;
-  margin: 20px;
+.heading {
+  font-weight: 700;
+}
+.subheading {
+  font-weight: 300;
 }

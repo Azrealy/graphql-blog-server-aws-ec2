@@ -72,6 +72,10 @@ const port = process.env.PORT || 8000;
 
 sequelize.sync({ force: false }).then(async () => {
 
+  if (!isProduction) {
+    createUsersWithMessages(new Date())
+  }
+
   httpServer.listen({ port }, () => {
     console.log(`Apollo Server on http://localhost:${port}/graphql`);
   });
@@ -102,7 +106,7 @@ const createUsersWithMessages = async date => {
   const post2 = await models.Post.create(
     {
       title: 'Deep understanding python asynchronous programming of tornado',
-      description: 'Thoroughly understand what, why, and how asynchronous programming is. And learning the basic concept of`tornado` asynchronous programming.',
+      description: 'Thoroughly understand what, why, and how asynchronous programming is. And learning the basic concept of `tornado` asynchronous programming.',
       image: "https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/41026193_1712817715483733_4509720973674545152_o.jpg?_nc_cat=101&oh=8f4a327f0a5ac4cc4f1309bbeebc0be8&oe=5C226087",
       content: tornadoContent,
       createdAt: date.setSeconds(date.getSeconds() + 1)

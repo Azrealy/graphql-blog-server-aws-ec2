@@ -16,11 +16,16 @@ const contentStyle = {
   ...imagesStyle,
 
   description: {
+    marginTop: "10px",
+    marginBottom: "10px",
     color: "black"
   },
   listItem: {
     marginTop: "30px",
   },
+  codeInline: {
+    background: "antiquewhite"
+  }
 };
 
 export default contentStyle;

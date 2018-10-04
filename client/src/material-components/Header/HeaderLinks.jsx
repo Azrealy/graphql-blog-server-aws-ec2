@@ -78,7 +78,7 @@ function HeaderLinksBeforeAuth({ ...props }) {
             color="transparent"
             className={classes.navLink}
           >
-            <i className={classes.socialIcons + " fab fa-github"} />
+            <i className={classes.socialIcons + " fab fa-github"} />Github
           </Button>
         </Tooltip>
       </ListItem>
@@ -95,7 +95,7 @@ function HeaderLinksBeforeAuth({ ...props }) {
             target="_blank"
             className={classes.navLink}
           >
-            <i className={classes.socialIcons + " fab fa-facebook"} />
+            <i className={classes.socialIcons + " fab fa-facebook"} />Facebook
           </Button>
         </Tooltip>
       </ListItem>
@@ -112,7 +112,7 @@ function HeaderLinksBeforeAuth({ ...props }) {
             target="_blank"
             className={classes.navLink}
           >
-            <i className={classes.socialIcons + " fab fa-instagram"} />
+            <i className={classes.socialIcons + " fab fa-instagram"} />Instagram
           </Button>
         </Tooltip>
       </ListItem>

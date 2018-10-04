@@ -10,7 +10,7 @@ import{ Link } from "react-router-dom";
 
 import GridContainer from "../../../material-components/Grid/GridContainer.jsx";
 import GridItem from "../../../material-components/Grid/GridItem.jsx";
-
+import ReactMarkdown from "react-markdown";
 import FetchMore from "../../../components/FetchMore";
 
 import postItemStyle from "../../../assets/jss/material-kit-react/views/landingPageSections/postItemStyle.jsx";
@@ -56,37 +56,7 @@ class PostItemSection extends React.Component {
             const data = new Date(Number(post.createdAt))
             return(
               <div key={post.id}>
-              <GridContainer>
-                <GridItem xs={12} md={4} className={classes.itemGrid}>
-                  <Link to={`/posts/${toIdHash(post.id)}`}>
-                  <img src={post.image} alt="..." className={imageClasses} />
-                  </Link>
-                  </GridItem>
-    
-                  <GridItem xs={12} md={8} className={classes.itemGrid}>
-    
-                    <h2 className={classes.cardTitle}> 
-                    <Link to={`/posts/${toIdHash(post.id)}`} className={classes.link}>
-                    {post.title}
-                    </Link>
-                    </h2>
-                    <h5 className={classes.description}>
-                      {post.description}
-                      </h5>
-
-                        {post.tags.map(({ id, name }) => (
-                          <Fragment key={id}>
-                            <h5 className={classes.smallTitle}>
-                            <Link to={`/filter/${name}`} className={classes.link}>
-                              #{name}
-                            </Link>
-                            </h5>
-                        </Fragment>
-                        ))}
-
-                      <h5 className={classes.smallTitle}> Created by George at {data.toDateString()}</h5>
-                </GridItem>
-              </GridContainer>
+                <PostContainer classes={classes} post={post} imageClasses={imageClasses} data={data}/>
               <br/><br/>
               </div> 
           )}          
@@ -96,35 +66,7 @@ class PostItemSection extends React.Component {
         const data = new Date(Number(post.createdAt))
         return(
           <div key={post.id}>
-          <GridContainer>
-            <GridItem xs={12} md={4} className={classes.itemGrid}>
-              <Link to={`/posts/${toIdHash(post.id)}`}>
-              <img src={post.image} alt="..." className={imageClasses} />
-              </Link>
-              </GridItem>
-
-              <GridItem xs={12} md={8} className={classes.itemGrid}>
-
-                <h2 className={classes.cardTitle}> 
-                <Link to={`/posts/${toIdHash(post.id)}`} className={classes.link}>
-                {post.title}
-                </Link>
-                </h2>
-                <h5 className={classes.description}>
-                  {post.description}
-                  </h5>
-                  {post.tags.map(({ id, name }) => (
-                    <Fragment key={id}>
-                      <h5 className={classes.smallTitle}>
-                        <Link to={`/filter/${name}`} className={classes.link}>
-                          #{name}
-                        </Link>
-                      </h5>
-                    </Fragment>
-                  ))}
-                  <h5 className={classes.smallTitle}> Created by George at {data.toDateString()}</h5>
-            </GridItem>
-          </GridContainer>
+            <PostContainer classes={classes} post={post} imageClasses={imageClasses} data={data}/>
           <br/><br/>
           </div> 
       )})        
@@ -162,5 +104,41 @@ class PostItemSection extends React.Component {
     );
   }
 }
+
+const PostContainer = ({classes, post, imageClasses, data}) => (
+  <GridContainer>
+  <GridItem xs={12} md={4} className={classes.itemGrid}>
+    <Link to={`/posts/${toIdHash(post.id)}`}>
+    <img src={post.image} alt="..." className={imageClasses} />
+    </Link>
+    </GridItem>
+
+    <GridItem xs={12} md={8} className={classes.itemGrid}>
+
+      <h2 className={classes.cardTitle}> 
+      <Link to={`/posts/${toIdHash(post.id)}`} className={classes.link}>
+      {post.title}
+      </Link>
+      </h2>
+      <h5 className={classes.description}>
+      <ReactMarkdown
+        source={post.description}
+      />
+        </h5>
+
+          {post.tags.map(({ id, name }) => (
+            <Fragment key={id}>
+              <h5 className={classes.smallTitle}>
+              <Link to={`/filter/${name}`} className={classes.link}>
+                #{name}
+              </Link>
+              </h5>
+          </Fragment>
+          ))}
+
+        <h5 className={classes.smallTitle}> Created by George at {data.toDateString()}</h5>
+  </GridItem>
+</GridContainer>
+)
 
 export default withStyles(postItemStyle)(PostItemSection);

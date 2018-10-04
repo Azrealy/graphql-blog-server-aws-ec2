@@ -10,7 +10,6 @@ import GridItem from "../../../material-components/Grid/GridItem.jsx";
 import contentStyle from "../../../assets/jss/material-kit-react/views/landingPageSections/contentStyle.jsx";
 import codeRenderer from './code-renderer';
 
-
 class ContentSection extends React.Component {
 
 
@@ -31,6 +30,10 @@ class ContentSection extends React.Component {
               source={source}
               renderers={{
                   code: codeRenderer,
+                  inlineCode: (props) => {
+                    console.log(props)
+                    return <code className={classes.codeInline}>{props.value}</code>
+                  }
               }}
             />
             

@@ -114,7 +114,7 @@ class LandingPage extends React.Component {
             </GridContainer>
           </div>
         </Parallax>
-        <div className={classNames(classes.main, classes.mainRaised)}>
+        <div className={classNames(classes.main)}>
           {this.renderLoadingOrPostItem(classes, loading, data, error, fetchMore, filterType)}
         </div>
         <Footer />

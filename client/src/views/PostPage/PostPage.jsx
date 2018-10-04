@@ -6,6 +6,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import gql from "graphql-tag";
 import { Query } from 'react-apollo';
 import Loading from "../../components/Loading";
+import ReactMarkdown from "react-markdown";
 // @material-ui/icons
 
 // core components
@@ -21,6 +22,7 @@ import postPage from "../../assets/jss/material-kit-react/views/postPage.jsx";
 import SnackbarContent from "../../material-components/Snackbar/SnackbarContent.jsx";
 // Sections for this page
 import ContentSection from "./Sections/ContentSection.jsx";
+import codeRenderer from "./Sections/code-renderer";
 
 
 const GET_POST = gql`
@@ -71,13 +73,18 @@ class PostPage extends React.PureComponent {
             <GridItem xs={12} sm={12} md={12}>
               <h1 className={classes.title}>{post.title}</h1>
               <h4>
-              {post.description}
+              <ReactMarkdown
+              source={post.description}
+              renderers={{
+                  code: codeRenderer
+              }}
+            />
               </h4>
             </GridItem>
           </GridContainer>
         </div>
       </Parallax>
-      <div className={classNames(classes.main, classes.mainRaised)}>
+      <div className={classNames(classes.main)}>
           <ContentSection post={post} />
       </div>
       </Fragment>
