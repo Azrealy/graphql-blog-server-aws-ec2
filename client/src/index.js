@@ -16,7 +16,7 @@ import App from "./App";
 
 
 const httpLink = new HttpLink({
-  uri: '/graphql',
+  uri: 'http://13.113.194.249/graphql',
 })
 
 
