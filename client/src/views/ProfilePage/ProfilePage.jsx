@@ -10,7 +10,6 @@ import Favorite from "@material-ui/icons/Favorite";
 // core components
 import Header from "../../material-components/Header/Header.jsx";
 import Footer from "../../material-components/Footer/Footer.jsx";
-import Button from "../../material-components/CustomButtons/Button.jsx";
 import GridContainer from "../../material-components/Grid/GridContainer.jsx";
 import GridItem from "../../material-components/Grid/GridItem.jsx";
 import HeaderLinks from "../../material-components/Header/HeaderLinks.jsx";
@@ -50,7 +49,7 @@ class ProfilePage extends React.Component {
           fixed
           changeColorOnScroll={{
             height: 200,
-            color: "white"
+            color: "info"
           }}
           {...rest}
         />
@@ -67,25 +66,19 @@ class ProfilePage extends React.Component {
                     <div className={classes.name}>
                       <h3 className={classes.title}>George Fang</h3>
                       <h4 className={classes.description}>A Tiny Software Engineer</h4>
-                      <Button justIcon link className={classes.margin5}>
-                        <i className={"fab fa-twitter"} />
-                      </Button>
-                      <Button justIcon link className={classes.margin5}>
-                        <i className={"fab fa-instagram"} />
-                      </Button>
-                      <Button justIcon link className={classes.margin5}>
-                        <i className={"fab fa-facebook"} />
-                      </Button>
+
                     </div>
                   </div>
                 </GridItem>
               </GridContainer>
               <div className={classes.description}>
                 <p>
-                  An artist of considerable range, Chet Faker — the name taken
-                  by Melbourne-raised, Brooklyn-based Nick Murphy — writes,
-                  performs and records all of his own music, giving it a warm,
-                  intimate feel with a solid groove structure.{" "}
+                  A software engineer who dream of be a designer, born in mainland China. A
+                  person who never can write a single English character in China. 
+                  Come to Japan from 2015, and received a master degree of science in 2017. 
+                  Compare to proofing math work, much enjoy reading  historical and political 
+                  articles. Thinking the human, region and country interaction, 
+                  and what the future will be.{" "}
                 </p>
               </div>
               <GridContainer justify="center">

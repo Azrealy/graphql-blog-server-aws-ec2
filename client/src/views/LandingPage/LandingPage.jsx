@@ -103,12 +103,11 @@ class LandingPage extends React.Component {
           <div className={classes.container}>
             <GridContainer>
               <GridItem xs={12} sm={12} md={5}>
-                <h1 className={classes.title}>Your Story Starts With Us.</h1>
+                <h1 className={classes.title}>My Story Starts From Here.</h1>
                 <h4>
-                  Every landing page needs a small description after the big
-                  bold title, that's why we added this text here. Add here all
-                  the information that can make you or your product create the
-                  first impression.
+                  Do my best to write some fancy articles and share it here with you. 
+                  Reading, learning new state-of-art technology, thinking the idea behind it. 
+                  Action before prepare, thinking more than practise.
                 </h4>
               </GridItem>
             </GridContainer>
