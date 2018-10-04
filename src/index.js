@@ -70,10 +70,7 @@ const isTest = !!process.env.TEST_DATABASE;
 const isProduction = !!process.env.DATABASE_URL || !process.env.DATABASE;
 const port = process.env.PORT || 8000;
 
-sequelize.sync({ force: isTest || isProduction }).then(async () => {
-  if (isTest || isProduction) {
-    createUsersWithMessages(new Date());
-  }
+sequelize.sync({ force: false }).then(async () => {
 
   httpServer.listen({ port }, () => {
     console.log(`Apollo Server on http://localhost:${port}/graphql`);

@@ -8,7 +8,6 @@ import ReactMarkdown from "react-markdown";
 import GridContainer from "../../../material-components/Grid/GridContainer.jsx";
 import GridItem from "../../../material-components/Grid/GridItem.jsx";
 import contentStyle from "../../../assets/jss/material-kit-react/views/landingPageSections/contentStyle.jsx";
-import Typography from '@material-ui/core/Typography';
 import codeRenderer from './code-renderer';
 
 
@@ -34,13 +33,7 @@ class ContentSection extends React.Component {
                   code: codeRenderer,
               }}
             />
-            <Typography className={classes.description} component="a">
-              This is the paragraph where you can write more details about your
-              product. engaged by providing meaningful
-              information. Remember that by this time, the user is curious,
-              otherwise he wouldn't scroll to get here. Add a button if you want
-              the user to see more.
-            </Typography>
+            
           </GridItem>
         </GridContainer>
 
