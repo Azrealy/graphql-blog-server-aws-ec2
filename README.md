@@ -21,10 +21,17 @@ A full-fledged Apollo Server 2 with Apollo Client 2 blog app with React, Express
   * example of using Facebook's dataloader
 * E2E testing
 
-## Enhancement
+## Todo
 
-* Implement the tag create mutation.
-* Integrate the UI repository.
+* Improve client side rendering speed. (Build index.html or use server rendering.)
+* Improve the safety level for postgres database.
+* Separate the production, develop and test environment.
+* Add a publish or editing status fields for Graghpl model.
+* Refactor client file system.
+* Improve usability of the CMS post table CRUD post interaction.
+* Make node.js proxy for connecting server and client.
+
+**Most Important TODO:** Create server and client TESTS!!
 
 ### Client
 
