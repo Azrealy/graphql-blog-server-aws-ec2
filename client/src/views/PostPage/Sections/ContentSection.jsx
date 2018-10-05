@@ -31,9 +31,13 @@ class ContentSection extends React.Component {
               renderers={{
                   code: codeRenderer,
                   inlineCode: (props) => {
-                    console.log(props)
                     return <code className={classes.codeInline}>{props.value}</code>
-                  }
+                  },
+                  image: (props) => (
+                    <GridItem xs={12} md={6} className={classes.itemGrid} >
+                    <img className={imageClasses} src={props.src} alt={props.alt}/>
+                    </GridItem>
+                  )
               }}
             />
             

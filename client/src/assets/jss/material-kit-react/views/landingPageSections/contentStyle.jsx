@@ -20,6 +20,10 @@ const contentStyle = {
     marginBottom: "10px",
     color: "black"
   },
+  itemGrid: {
+    marginLeft: "auto",
+    marginRight: "auto"
+  },
   listItem: {
     marginTop: "30px",
   },

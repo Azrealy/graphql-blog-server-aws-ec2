@@ -66,10 +66,7 @@ class LandingPage extends React.Component {
     } else {
       return (
         <SnackbarContent
-          message={
-            <span>
-              <b>WARNING ALERT:</b> Post like disappeared! Try to refresh your browser!
-            </span>}
+          message={`WARNING ALERT: ${error.message}`}
           close
           color="warning"
           icon={Warning} />
@@ -82,11 +79,6 @@ class LandingPage extends React.Component {
     const filterType = match ? match.params.type: null
 
     return (
-      <Query
-        query={GET_POSTS_LIST}
-        variables={{forward: false, cursor: "", limit: 5}}
-        notifyOnNetworkStatusChange={true}>
-      {({ data, loading, error,fetchMore }) => (
       <div>
         <Header
           color="transparent"
@@ -113,14 +105,18 @@ class LandingPage extends React.Component {
             </GridContainer>
           </div>
         </Parallax>
-        <div className={classNames(classes.main)}>
-          {this.renderLoadingOrPostItem(classes, loading, data, error, fetchMore, filterType)}
-        </div>
-        <Footer />
-      </div>
-      )}
+        <Query
+          query={GET_POSTS_LIST}
+          variables={{forward: false, cursor: "", limit: 5}}
+          notifyOnNetworkStatusChange={true}>
+          {({ data, loading, error,fetchMore }) => (
+            <div className={classNames(classes.main)}>
+              {this.renderLoadingOrPostItem(classes, loading, data, error, fetchMore, filterType)}
+            </div>
+          )}
       </Query>
-
+      <Footer />
+    </div>
     );
   }
 }

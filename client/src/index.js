@@ -14,11 +14,9 @@ import registerServiceWorker from './registerServiceWorker';
 
 import App from "./App";
 
-
 const httpLink = new HttpLink({
-  uri: 'http://13.113.194.249/graphql',
+  uri: `${process.env.REACT_APP_API_URL}`,
 })
-
 
 const authLink = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => {

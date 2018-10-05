@@ -28,6 +28,8 @@ class ContentManagerPage extends React.Component {
           {...rest}
         />
         <hr/>
+        <hr/>
+        <hr/>
         <h1 className={classes.title}>Welcome to my post CMS.</h1>
             <div>
             <PostTable />

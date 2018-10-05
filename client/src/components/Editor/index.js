@@ -224,9 +224,6 @@ class ReactMdeDemo extends React.Component {
         editorState={this.state.contentState}
         generateMarkdownPreview={this.generateMarkdownPreview}
       />
-        <Button disabled={isInvalid || loading} type="submit" style={{ marginTop: 20 }}>
-        Submit
-      </Button>
     </div>
     )
   }
@@ -276,11 +273,17 @@ class ReactMdeDemo extends React.Component {
             content: content, 
             tags: tagIds}}>
           {(updatePost, { data, loading, error }) => (
-            <form onSubmit={event => this.onUpdateSubmit(event, updatePost)} >
+            <div>
+            {error && <ErrorMessage error={error} />}
               {this.inputForm(classes, loading, title, image, tagIds, isInvalid)}
-                <Button onClick={() => this.props.handleClose()}> close</Button>
-              {error && <ErrorMessage error={error} />}
-            </form>)}
+                <Button disabled={isInvalid || loading} 
+                  onClick={event => this.onUpdateSubmit(event, updatePost)} 
+                  style={{ marginTop: 20 }}>
+                  Submit
+                </Button>
+                <Button onClick={() => this.props.handleClose()}
+                style={{ marginTop: 20 }}> close</Button>
+            </div>)}
         </Mutation>
       </div>
       )
@@ -300,10 +303,16 @@ class ReactMdeDemo extends React.Component {
           variables={{ title, description, image, content, tags: tagIds }}
           update={this.addPost}>
           {(createPost, { data, loading, error }) => (
-            <form onSubmit={event => this.onSubmit(event, createPost)} >
+            <div >
+            {error && <ErrorMessage error={error} />}
               {this.inputForm(classes, loading, title, image, tagIds, isInvalid)}
-              {error && <ErrorMessage error={error} />}
-          </form>)}
+              <Button 
+              onClick={event => this.onSubmit(event, createPost)} 
+              disabled={isInvalid || loading} 
+              style={{ marginTop: 20 }}>
+                Submit
+              </Button>
+          </div>)}
       </Mutation>
       </div>      
     )      

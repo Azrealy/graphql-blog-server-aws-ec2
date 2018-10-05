@@ -32,6 +32,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "deploy": "aws s3 cp build/ s3://BUCKET_S3_NAME/ --recursive --exclude \"*\" --include \"*.jpg\"",
     "eject": "react-scripts eject"
   }
 }
