@@ -86,10 +86,12 @@ var tornadoContent = fs.readFileSync('./tornado-post.md', 'utf8');
 var envContent = fs.readFileSync('./using-react-env.md', 'utf8')
 const createUsersWithMessages = async date => {
   await models.Tag.create({
+    id: 10,
     name: "python"
   })
   await models.Tag.create({
-    name: "webpack"
+    id: 11,
+    name: "webpack",
   })
 
   const post1 = await models.Post.create(
@@ -101,7 +103,7 @@ const createUsersWithMessages = async date => {
       createdAt: date.setSeconds(date.getSeconds() + 1),
     }
   )
-  await post1.setTags([2])
+  await post1.setTags([10])
 
   const post2 = await models.Post.create(
     {
@@ -112,19 +114,19 @@ const createUsersWithMessages = async date => {
       createdAt: date.setSeconds(date.getSeconds() + 1)
     }
   )
-  await post2.setTags([1, 2])
+  await post2.setTags([11, 10])
 
 
   const post3 = await models.Post.create(
     {
       title: 'Deep understanding python asynchronous programming of tornado',
       description: 'Thoroughly understand what, why, and how asynchronous programming is. And learning the basic concept of`tornado` asynchronous programming.',
-      image: "https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/41026193_1712817715483733_4509720973674545152_o.jpg?_nc_cat=101&oh=8f4a327f0a5ac4cc4f1309bbeebc0be8&oe=5C226087",
-      content: tornadoContent,
+      image: "https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/43331094_2191437827736847_713655545474580480_n.jpg?_nc_cat=101&oh=b9c40d086667dfe7975533a9dcfa25db&oe=5C46B86A",
+      content: envContent,
       createdAt: date.setSeconds(date.getSeconds() + 1)
     }
   )
-  await post3.setTags([1, 2])
+  await post3.setTags([11, 10])
 
   await models.User.create(
     {

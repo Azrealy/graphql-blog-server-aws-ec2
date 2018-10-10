@@ -1,3 +1,8 @@
+---
+title: 'Webpack 4 tutorial'
+description: 'Webpack 4 has **a massive performance improvement** as zero configure module bundler.'
+image: "https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/42090761_1727426667356171_3308341453305937920_o.jpg?_nc_cat=110oh=67b704d0607d274c8066aa8926689835&oe=5C5D6B55"
+---
 # Postgres Setup on MacOS
 
 Homebrew for installing and managing your applications on MacOS. Afterward, you can update all your Homebrew dependencies and install PostgresSQL on the command line: 
