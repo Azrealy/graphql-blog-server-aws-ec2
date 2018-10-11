@@ -2,7 +2,7 @@
 title: Webpack 4 tutorial
 description: Webpack 4 has **a massive performance improvement** as zero configure module bundler.
 tags: python
-image: https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/42090761_1727426667356171_3308341453305937920_o.jpg?_nc_cat=110&oh=67b704d0607d274c8066aa8926689835&oe=5C5D6B55
+image: https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/41026193_1712817715483733_4509720973674545152_o.jpg?_nc_cat=101&oh=8f4a327f0a5ac4cc4f1309bbeebc0be8&oe=5C226087
 ---
 # Postgres Setup on MacOS
 

@@ -82,18 +82,7 @@ sequelize.sync({ force: isTest || isProduction }).then(async () => {
   });
 });
 
-var webpackContent = fs.readFileSync('./webpack-post.md', 'utf8');
-var tornadoContent = fs.readFileSync('./tornado-post.md', 'utf8');
-var envContent = fs.readFileSync('./using-react-env.md', 'utf8')
 const createUsersWithMessages = async date => {
-  await models.Tag.create({
-    id: 1,
-    name: "python"
-  })
-  await models.Tag.create({
-    id: 2,
-    name: "webpack",
-  })
 
   const tags = [{
     id: 1,
@@ -101,43 +90,19 @@ const createUsersWithMessages = async date => {
   }, {
     id: 2,
     name: "webpack"
+  },{
+    id: 3,
+    name: "deploy"
+  },{
+    id: 4,
+    name: "react"
   }]
 
+  await tags.forEach(async tag => await models.Tag.create(tag))
+
   await storeMarkdown('./tutorial.md', date, models, tags)
-
-  const post1 = await models.Post.create(
-    {
-      title: 'Webpack 4 tutorial',
-      description: 'Webpack 4 has **a massive performance improvement** as zero configure module bundler.',
-      image: "https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/42090761_1727426667356171_3308341453305937920_o.jpg?_nc_cat=110&oh=67b704d0607d274c8066aa8926689835&oe=5C5D6B55",
-      content: webpackContent,
-      createdAt: date.setSeconds(date.getSeconds() + 1),
-    }
-  )
-  await post1.setTags([10])
-
-  const post2 = await models.Post.create(
-    {
-      title: 'Deep understanding python asynchronous programming of tornado',
-      description: 'Thoroughly understand what, why, and how asynchronous programming is. And learning the basic concept of`tornado` asynchronous programming.',
-      image: "https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/41026193_1712817715483733_4509720973674545152_o.jpg?_nc_cat=101&oh=8f4a327f0a5ac4cc4f1309bbeebc0be8&oe=5C226087",
-      content: tornadoContent,
-      createdAt: date.setSeconds(date.getSeconds() + 1)
-    }
-  )
-  await post2.setTags([11, 10])
-
-
-  const post3 = await models.Post.create(
-    {
-      title: 'Deep understanding python asynchronous programming of tornado',
-      description: 'Thoroughly understand what, why, and how asynchronous programming is. And learning the basic concept of`tornado` asynchronous programming.',
-      image: "https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/43331094_2191437827736847_713655545474580480_n.jpg?_nc_cat=101&oh=b9c40d086667dfe7975533a9dcfa25db&oe=5C46B86A",
-      content: envContent,
-      createdAt: date.setSeconds(date.getSeconds() + 1)
-    }
-  )
-  await post3.setTags([11, 10])
+  await storeMarkdown('./webpack-post.md', date, models, tags)
+  await storeMarkdown('./using-react-env.md', date, models, tags)
 
   await models.User.create(
     {
