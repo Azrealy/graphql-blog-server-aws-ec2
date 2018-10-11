@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import DataLoader from 'dataloader';
 import { ApolloServer } from 'apollo-server-express';
 import { AuthenticationError } from 'apollo-server';
+import storeMarkdown from "./storeMarkdown";
 
 import schema from './schema';
 import resolvers from './resolvers';
@@ -86,13 +87,23 @@ var tornadoContent = fs.readFileSync('./tornado-post.md', 'utf8');
 var envContent = fs.readFileSync('./using-react-env.md', 'utf8')
 const createUsersWithMessages = async date => {
   await models.Tag.create({
-    id: 10,
+    id: 1,
     name: "python"
   })
   await models.Tag.create({
-    id: 11,
+    id: 2,
     name: "webpack",
   })
+
+  const tags = [{
+    id: 1,
+    name: "python"
+  }, {
+    id: 2,
+    name: "webpack"
+  }]
+
+  await storeMarkdown('./tutorial.md', date, models, tags)
 
   const post1 = await models.Post.create(
     {
