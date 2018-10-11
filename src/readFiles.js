@@ -12,9 +12,9 @@ const path = require("path");
 const date = new Date()
 
 
-const storeMarkdown = async (fileName, tags) => {
+const storeMarkdown = async (dirpath, filename, tags) => {
     const rl = readline.createInterface({
-      input: fs.createReadStream(path.join(__dirname, 'blogs', fileName)),
+      input: fs.createReadStream(path.join(dirpath, filename)),
     });
     var lineCounter = 0;
 
@@ -52,4 +52,17 @@ const storeMarkdown = async (fileName, tags) => {
     })
 }
 
-export default storeMarkdown;
+const readFiles = async (dirname, tags) => {
+  const dirpath = path.join(__dirname, dirname)
+  fs.readdir(dirpath, async (err, filenames) => {
+    if (err) {
+      throw err;
+      return 
+    }
+    filenames.forEach( async (filename) => {
+      await storeMarkdown(dirpath, filename, tags)
+    })
+  })
+} 
+
+export default readFiles;

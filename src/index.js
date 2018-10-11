@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 import DataLoader from 'dataloader';
 import { ApolloServer } from 'apollo-server-express';
 import { AuthenticationError } from 'apollo-server';
-import storeMarkdown from "./storeMarkdown";
+import readFiles from "./readFiles";
 
 import schema from './schema';
 import resolvers from './resolvers';
@@ -118,13 +118,7 @@ const createUsersWithMessages = async date => {
 
   await tags.forEach(async tag => await models.Tag.create(tag))
 
-  await storeMarkdown('deploy-react-app-in-aws.md', tags)
-  await storeMarkdown('gatsby-static-web.md',  tags)
-  await storeMarkdown('mini-nodejs-babel-setup.md', tags)
-  await storeMarkdown('postgres-setup.md', tags)
-  await storeMarkdown('tornado-async.md', tags)
-  await storeMarkdown('using-react-env.md', tags)
-  await storeMarkdown('webpack-post.md', tags)  
+  await readFiles('blogs', tags)
 
   await models.User.create(
     {
