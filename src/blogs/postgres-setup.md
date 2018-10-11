@@ -1,8 +1,8 @@
 ---
-title: Webpack 4 tutorial
-description: Webpack 4 has **a massive performance improvement** as zero configure module bundler.
-tags: python
-image: https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/41026193_1712817715483733_4509720973674545152_o.jpg?_nc_cat=101&oh=8f4a327f0a5ac4cc4f1309bbeebc0be8&oe=5C226087
+title: Setup postgres environment for MacOS
+description: Setup postgres environment for MacOS, which can also use to deploy aws ec2 database environment of postgres.
+tags: Postgres, English, Deploy
+image: https://cdn.stocksnap.io/img-thumbs/960w/QHD9O1XCDV.jpg
 ---
 # Postgres Setup on MacOS
 
@@ -180,56 +180,3 @@ app.listen({ port: 8000 }, () => {
   console.log('Apollo Server on http://localhost:8000/graphql');
 });
 ```
-
-# Live demo
-
-Changes are automatically rendered as you type.
-
-* Implements [GitHub Flavored Markdown](https://github.github.com/gfm/)
-* Renders actual, "native" React DOM elements
-* Allows you to escape or skip HTML (try toggling the checkboxes above)
-* If you escape or skip the HTML, no `dangerouslySetInnerHTML` is used! Yay!
-
-## HTML block below
-
-<blockquote>
-  This blockquote will change based on the HTML settings above.
-</blockquote>
-
-## How about some code?
-```js
-var React = require('react');
-var Markdown = require('react-markdown');
-
-React.render(
-  <Markdown source="# Your markdown here" />,
-  document.getElementById('content')
-);
-```
-
-```js
-var React = require('react');
-var Markdown = require('react-markdown');
-
-React.render(
-  <Markdown source="# Your markdown here" />,
-  document.getElementById('content')
-);
-```
-Pretty neat, eh?
-
-## Tables?
-
-| Feature | Support |
-| ------ | ----------- |
-| tables | ✔ |
-| alignment | ✔ |
-| wewt | ✔ |
-
-## More info?
-
-Read usage information and more on [GitHub](//github.com/rexxars/react-markdown)
-
----------------
-
-A component by [VaffelNinja](http://vaffel.ninja) / Espen Hovlandsdal

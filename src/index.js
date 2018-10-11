@@ -85,24 +85,46 @@ sequelize.sync({ force: isTest || isProduction }).then(async () => {
 const createUsersWithMessages = async date => {
 
   const tags = [{
-    id: 1,
-    name: "python"
-  }, {
-    id: 2,
-    name: "webpack"
-  },{
-    id: 3,
-    name: "deploy"
-  },{
-    id: 4,
-    name: "react"
-  }]
+      id: 1,
+      name: "Python"
+    }, {
+      id: 2,
+      name: "Webpack"
+    },{
+      id: 3,
+      name: "Deploy"
+    },{
+      id: 4,
+      name: "React"
+    },{
+      id: 5,
+      name: "English"
+    }, {
+      id: 6,
+      name: "Nodejs"
+    }, {
+      id: 7,
+      name: "Gatsby"
+    }, {
+      id: 8,
+      name: "JWT"
+    }, {
+      id: 9,
+      name: "Japanese"
+    }, {
+      id: 10,
+      name: "Postgres"
+    }]
 
   await tags.forEach(async tag => await models.Tag.create(tag))
 
-  await storeMarkdown('./tutorial.md', date, models, tags)
-  await storeMarkdown('./webpack-post.md', date, models, tags)
-  await storeMarkdown('./using-react-env.md', date, models, tags)
+  await storeMarkdown('deploy-react-app-in-aws.md', tags)
+  await storeMarkdown('gatsby-static-web.md',  tags)
+  await storeMarkdown('mini-nodejs-babel-setup.md', tags)
+  await storeMarkdown('postgres-setup.md', tags)
+  await storeMarkdown('tornado-async.md', tags)
+  await storeMarkdown('using-react-env.md', tags)
+  await storeMarkdown('webpack-post.md', tags)  
 
   await models.User.create(
     {

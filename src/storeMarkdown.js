@@ -1,15 +1,23 @@
 //import readline from "readline";
 //import fs from "fs";
 //import path from "path";
+import models from './models';
+import { request } from 'https';
+
 const fs = require("fs");
 const readline = require("readline");
-const R = require("ramda")
+const R = require("ramda");
+const path = require("path");
 
-const storeMarkdown = async (path, date, models, tags) => {
+const date = new Date()
+
+
+const storeMarkdown = async (fileName, tags) => {
     const rl = readline.createInterface({
-        input: fs.createReadStream(path),
+      input: fs.createReadStream(path.join(__dirname, 'blogs', fileName)),
     });
     var lineCounter = 0;
+
     var markdown = {
         title: "",
         description: "",

@@ -1,7 +1,7 @@
 ---
-title: How to setup react env for your project 
+title: Using environment variable for you React project
 description: You can pass the `environment variable` to the global process.env Object. That global Object is provided by your environment through NodeJS. And because we don't have NodeJs in the browser, we're going to need webpack.
-tags: deploy, react
+tags: Deploy, React
 image: https://cdn.stocksnap.io/img-thumbs/960w/YQ5HTMOKU3.jpg
 ---
 # Using environment variables in React 
