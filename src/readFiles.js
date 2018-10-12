@@ -57,7 +57,6 @@ const readFiles = async (dirname, tags) => {
   fs.readdir(dirpath, async (err, filenames) => {
     if (err) {
       throw err;
-      return 
     }
     filenames.forEach( async (filename) => {
       await storeMarkdown(dirpath, filename, tags)
