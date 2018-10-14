@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 import DataLoader from 'dataloader';
 import { ApolloServer } from 'apollo-server-express';
 import { AuthenticationError } from 'apollo-server';
-import readFiles from "./readFiles";
+import fileList from "./fileList";
 
 import schema from './schema';
 import resolvers from './resolvers';
@@ -84,41 +84,12 @@ sequelize.sync({ force: isTest || isProduction }).then(async () => {
 
 const createUsersWithMessages = async date => {
 
-  const tags = [{
-      id: 1,
-      name: "Python"
-    }, {
-      id: 2,
-      name: "Webpack"
-    },{
-      id: 3,
-      name: "Deploy"
-    },{
-      id: 4,
-      name: "React"
-    },{
-      id: 5,
-      name: "English"
-    }, {
-      id: 6,
-      name: "Nodejs"
-    }, {
-      id: 7,
-      name: "Gatsby"
-    }, {
-      id: 8,
-      name: "JWT"
-    }, {
-      id: 9,
-      name: "Japanese"
-    }, {
-      id: 10,
-      name: "Postgres"
-    }]
+  const posts = await fileList('blogs')
 
-  await tags.forEach(async tag => await models.Tag.create(tag))
-
-  await readFiles('blogs', tags)
+  await posts.forEach(async post => {
+    const result = await models.Post.create(post.markdown)
+    await result.setTags(post.tagIds)
+  })
 
   await models.User.create(
     {
