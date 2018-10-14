@@ -1,27 +1,33 @@
-const R = require("ramda");
+var fs = require("fs")
+var path = require("path")
+var dir = process.argv[2] || '.';
 
-function TagObjectGenerator(initialId) {
-    this.nextId = initialId || 1;
-    this.tagNames = [];
-    this.tags = [];
+var fileList = (dir) => {
+  var results = [];
+  return new Promise((res, rej) => {
+    fs.readdir(dir, (err, files) => {
+      if (err) {
+        return rej(err);
+      }
+      files.forEach(file => {
+        var fp = path.join(dir, file);
+        if (fs.statSync(fp).isDirectory()) {
+          fileList(fp)
+            .then(files => {
+              results = results.concat(files);
+            });
+        } else {
+          results.push(fp);
+        }
+      });
+      res(results);
+    });
+  });
 }
 
-TagObjectGenerator.prototype.generateTag = function(name) {
-    
-    if (this.tagNames.includes(name)) {
-        return R.find(R.propEq('name', name))(this.tags)
-    } else {
-        tag = {id: this.nextId ++, name: name};
-        this.tagNames.push(name)
-        this.tags.push(tag)
-        return tag
-    }
-
-}
-
-var TagGenerator = new TagObjectGenerator();
-var tag1 = TagGenerator.generateTag('Python')
-var tag2 = TagGenerator.generateTag('javascript')
-var tag3 = TagGenerator.generateTag('javascript')
-
-console.log(TagGenerator.tagNames)
+fileList("src/test")
+  .then(files => {
+    console.log(files);
+  }, (err) => {
+    console.log('error', err);
+  })

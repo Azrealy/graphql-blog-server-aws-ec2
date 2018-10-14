@@ -47,8 +47,9 @@ const storeMarkdown = async (dirpath, filename, tags) => {
         
     });
     rl.on('close', async function() {
-        const post = await  models.Post.create(markdown)
-        await post.setTags(tagIds)
+        
+        //const post = await  models.Post.create(markdown)
+        //await post.setTags(tagIds)
     })
 }
 
