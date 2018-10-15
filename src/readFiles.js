@@ -65,7 +65,7 @@ const storeMarkdown = (dirPath, filename, tagsHelper) => {
     })
   }
 
-const fileList = (dirName) => {
+const readFiles = (dirName) => {
   const tagsHelper = new TagsHelper();
   const dirPath = path.join(__dirname, dirName);
   return new Promise((resolve, reject) => {
@@ -84,4 +84,4 @@ const fileList = (dirName) => {
   });
 }
 
-export default fileList;
+export default readFiles;

@@ -1,9 +1,7 @@
 import models from "./models";
-import fs from "fs";
+import fs, { writeFile } from "fs";
 import path from "path";
-import inquirer from "inquirer";
 import chalk from "chalk";
-import figlet from "figlet";
 
 
 const writeFileAsync = async (dirpath, post) => {
@@ -30,7 +28,7 @@ const writeFileAsync = async (dirpath, post) => {
   writeStream.end();
 }
 
-const writeAllFile = async (dirname) => {
+const writeFiles = async (dirname) => {
   const dirpath = path.join(__dirname, dirname);
   if (!fs.existsSync(dirpath)) {
     fs.mkdirSync(dirpath);
@@ -41,46 +39,4 @@ const writeAllFile = async (dirname) => {
   })    
 }
 
-const init = () => {
-  console.log(
-    chalk.green(
-      figlet.textSync("Blog Admin Write File CLI", {
-        horizontalLayout: "default",
-        verticalLayout: "default"
-      })
-    )
-  );
-};
-
-const askQuestions = () => {
-  const questions = [
-    {
-      name: "DIRNAME",
-      type: "input",
-      message: "Input the directory name your want store your data files."
-    },
-  ];
-  return inquirer.prompt(questions);
-};
-
-const run = async () => {
-  // show script introduction
-  init();
-
-  // ask questions
-  const answers = await askQuestions();
-  const { DIRNAME } = answers;
-
-  try {
-    await writeAllFile(DIRNAME);
-    success(DIRNAME);
-  }
-  catch (err) {
-    console.log("Process of store database data failed, ", err.message)
-    return
-  }
-  // show success message
-  
-};
-
-run();
+export default writeFiles;

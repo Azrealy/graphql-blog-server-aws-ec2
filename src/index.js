@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 import DataLoader from 'dataloader';
 import { ApolloServer } from 'apollo-server-express';
 import { AuthenticationError } from 'apollo-server';
-import fileList from "./fileList";
+import readFiles from "./readFiles";
 
 import schema from './schema';
 import resolvers from './resolvers';
@@ -79,8 +79,7 @@ sequelize.sync({ force: isTest || isDevelopment || isProduction }).then(async ()
   }
 
   if (isProduction) {
-    await createPosts('blogs');
-    console.log('Production model has been set.')
+    console.log('Production model has been set....')
   }
 
   httpServer.listen({ port }, () => {
@@ -91,7 +90,7 @@ sequelize.sync({ force: isTest || isDevelopment || isProduction }).then(async ()
 
 const createPosts = async (dirname) => {
 
-  const posts = await fileList(dirname)
+  const posts = await readFiles(dirname)
 
   await posts.forEach(async post => {
     const result = await models.Post.create(post.markdown)

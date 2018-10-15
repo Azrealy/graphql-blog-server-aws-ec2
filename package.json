@@ -7,7 +7,7 @@
     "test-server": "npm start",
     "test": "mocha --require babel-core/register 'src/**/*.spec.js'",
     "usercli": "babel-node --presets env,stage-2 src/usercli.js",
-    "writefile": "babel-node --presets env,stage-2 src/writeFile.js",
+    "filecli": "babel-node --presets env,stage-2 src/filecli.js",
     "start": "nodemon --exec babel-node --presets env,stage-2 src/index.js"
   },
   "keywords": [],
