@@ -6,12 +6,11 @@
   "scripts": {
     "test-server": "npm start",
     "test": "mocha --require babel-core/register 'src/**/*.spec.js'",
-    "client": "cd client && npm start",
-    "start": "nodemon --exec babel-node --presets env,stage-2 src/index.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run start\" \"npm run client\""
+    "usercli": "babel-node --presets env,stage-2 src/usercli.js",
+    "start": "nodemon --exec babel-node --presets env,stage-2 src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "George Fang",
   "license": "ISC",
   "devDependencies": {
     "axios": "^0.18.0",
@@ -29,14 +28,16 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
     "bcrypt": "^1.0.3",
-    "concurrently": "^4.0.1",
+    "chalk": "^2.4.1",
     "cors": "^2.8.4",
     "dataloader": "^1.4.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "figlet": "^1.2.1",
     "graphql": "^14.0.2",
     "graphql-resolvers": "^0.2.2",
     "graphql-tools": "^4.0.0",
+    "inquirer": "^6.2.0",
     "jsonwebtoken": "^8.3.0",
     "nodemon": "^1.18.4",
     "pg": "^7.4.3",

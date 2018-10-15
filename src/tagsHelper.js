@@ -10,14 +10,14 @@ class TagsHelper {
   generateTag(name) {
 
     if (this.tagNames.includes(name)) {
-      return R.find(R.propEq('name', name))(this.tags)
+      return R.find(R.propEq('name', name))(this.tags);
     } else {
       const tag = { id: this.nextId++, name: name };
-      this.tagNames.push(name)
-      this.tags.push(tag)
-      return tag
+      this.tagNames.push(name);
+      this.tags.push(tag);
+      return tag;
     }
   }
 }
 
-module.exports = TagsHelper
+export default TagsHelper;

@@ -12,7 +12,6 @@ import schema from './schema';
 import resolvers from './resolvers';
 import models, { sequelize } from './models';
 import loaders from './loaders';
-import fs from "fs";
 
 const app = express();
 
@@ -68,12 +67,20 @@ const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
 
 const isTest = !!process.env.TEST_DATABASE;
-const isProduction = !!process.env.DATABASE_URL || !process.env.DATABASE;
+const isDevelopment = !process.env.DATABASE;
+const isProduction = !!process.env.DATABASE_URL;
 const port = process.env.PORT || 8000;
 
-sequelize.sync({ force: isTest || isProduction }).then(async () => {
-  if (isTest || isProduction) {
-    createUsersWithMessages(new Date());
+sequelize.sync({ force: isTest || isDevelopment }).then(async () => {
+  if (isTest || isDevelopment) {
+    await createPosts();
+    await createUsers();
+    console.log('Default user been create...')
+  }
+
+  if (isProduction) {
+    await createPosts();
+    console.log('Production model has been set.')
   }
 
   httpServer.listen({ port }, () => {
@@ -82,7 +89,7 @@ sequelize.sync({ force: isTest || isProduction }).then(async () => {
   });
 });
 
-const createUsersWithMessages = async date => {
+const createPosts = async () => {
 
   const posts = await fileList('blogs')
 
@@ -90,21 +97,16 @@ const createUsersWithMessages = async date => {
     const result = await models.Post.create(post.markdown)
     await result.setTags(post.tagIds)
   })
+};
+
+const createUsers = async () => {
 
   await models.User.create(
     {
-      username: 'aliceice',
+      username: 'george',
       email: 'fangkaihang1992@yahoo.co.jp',
-      password: '1234qwer',
+      password: 'georgepassword',
       role: 'ADMIN',
     },
   );
-
-  await models.User.create(
-    {
-      username: 'backupaccount',
-      email: 'aliceworld@david.com',
-      password: 'alice1234',
-    },
-  );
-};
+}

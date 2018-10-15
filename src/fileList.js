@@ -1,22 +1,24 @@
-import models from './models';
+import models from "./models";
+import TagsHelper from "./tagsHelper";
 
-const readline = require('readline');
-const path = require("path");
-const fs = require("fs");
-const TagsHelper = require("./tagsHelper.js")
+import readline from "readline";
+import path from "path";
+import fs from "fs";
+
 const date = new Date()
 
 const readFileAsync =  (
     filenames, 
     dirPath, 
     tagsHelper) => {
-  return new Promise(function(resolve, reject){
-    Promise.all(filenames.map((filename) => {
+  return new Promise(async (resolve, reject) => {
+    const posts = await Promise.all(filenames.map((filename) => {
       return storeMarkdown(
         dirPath,
         filename,
-        tagsHelper)
-    })).then(posts => resolve(posts));
+        tagsHelper);
+    }))
+    resolve(posts);
   })
 }
 
@@ -33,7 +35,7 @@ const storeMarkdown = (dirPath, filename, tagsHelper) => {
       image: "",
       content: "",
       createdAt: date.setSeconds(date.getSeconds() + 1),
-    }
+    };
     return new Promise((resolve, reject) => {
       rl.on('line', (line) => {
         lineCounter++;
@@ -74,9 +76,9 @@ const fileList = (dirName) => {
         files,
         dirPath,
         tagsHelper)
-      const tags = tagsHelper.tags
-      await tags.forEach(async tag => await models.Tag.create(tag))
-      resolve(posts)
+      const tags = tagsHelper.tags;
+      await tags.forEach(async tag => await models.Tag.create(tag));
+      resolve(posts);
     });
   });
 }
