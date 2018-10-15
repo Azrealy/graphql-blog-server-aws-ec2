@@ -78,6 +78,7 @@ sequelize.sync({ force: isTest || isProduction }).then(async () => {
   }
 
   if (isProduction) {
+    await createPosts('blogs');
     console.log('Production model has been set....')
   }
 

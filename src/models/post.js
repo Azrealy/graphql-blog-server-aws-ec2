@@ -20,7 +20,7 @@ const post = (sequelize, DataTypes) => {
         }
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         validate: {
           notEmpty: {
             args: true,
@@ -39,7 +39,7 @@ const post = (sequelize, DataTypes) => {
       },
 
       content: {
-        type: DataTypes.STRING ,
+        type: DataTypes.TEXT,
         validate: { notEmpty: {
                 args:true,
                 msg: 'Content can not be empty'
