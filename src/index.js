@@ -73,13 +73,13 @@ const port = process.env.PORT || 8000;
 
 sequelize.sync({ force: isTest || isDevelopment || isProduction }).then(async () => {
   if (isTest || isDevelopment) {
-    await createPosts('test-blog');
+    await createPosts('blogs');
     await createUsers();
     console.log('Default user been create...')
   }
 
   if (isProduction) {
-    await createPosts('blog');
+    await createPosts('blogs');
     console.log('Production model has been set.')
   }
 

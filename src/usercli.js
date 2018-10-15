@@ -7,8 +7,7 @@ import figlet from "figlet";
 const init = () => {
   console.log(
     chalk.green(
-      figlet.textSync("Blog Admin CLI", {
-        font: "Ghost",
+      figlet.textSync("Blog Admin User CLI", {
         horizontalLayout: "default",
         verticalLayout: "default"
       })
