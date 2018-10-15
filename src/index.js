@@ -66,13 +66,12 @@ server.applyMiddleware({ app, path: '/graphql' });
 const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
 
-const isTest = !!process.env.TEST_DATABASE;
-const isDevelopment = !process.env.DATABASE;
-const isProduction = !!process.env.DATABASE_URL;
+const isTest = !!process.env.TEST_DATABASE; //use sqlite3
+const isProduction = !!process.env.DATABASE || !!process.env.DATABASE_URL; //use postgres
 const port = process.env.PORT || 8000;
 
-sequelize.sync({ force: isTest || isDevelopment || isProduction }).then(async () => {
-  if (isTest || isDevelopment) {
+sequelize.sync({ force: isTest || isProduction }).then(async () => {
+  if (isTest) {
     await createPosts('blogs');
     await createUsers();
     console.log('Default user been create...')

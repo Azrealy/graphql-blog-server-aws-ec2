@@ -10,15 +10,15 @@ if (process.env.DATABASE_URL) {
 if (process.env.DATABASE) {
   // Postgres env
  sequelize = new Sequelize(
-  process.env.TEST_DATABASE || process.env.DATABASE ,
+  process.env.DATABASE,
   process.env.DATABASE_USER,
   process.env.DATABASE_PASSWORD,
   {
     dialect: 'postgres',
   })
 } else {
-  // Sqlite env
-  sequelize = new Sequelize('sqlite:/tmp/sqlite-db.db')
+  // Sqlite sql_url = "sqlite:/tmp/sqlite-db.db"
+  sequelize = new Sequelize(process.env.TEST_DATABASE)
 }
 
 const models = {
