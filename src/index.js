@@ -71,15 +71,15 @@ const isDevelopment = !process.env.DATABASE;
 const isProduction = !!process.env.DATABASE_URL;
 const port = process.env.PORT || 8000;
 
-sequelize.sync({ force: isTest || isDevelopment }).then(async () => {
+sequelize.sync({ force: isTest || isDevelopment || isProduction }).then(async () => {
   if (isTest || isDevelopment) {
-    await createPosts();
+    await createPosts('test-blog');
     await createUsers();
     console.log('Default user been create...')
   }
 
   if (isProduction) {
-    await createPosts();
+    await createPosts('blog');
     console.log('Production model has been set.')
   }
 
@@ -89,9 +89,9 @@ sequelize.sync({ force: isTest || isDevelopment }).then(async () => {
   });
 });
 
-const createPosts = async () => {
+const createPosts = async (dirname) => {
 
-  const posts = await fileList('blogs')
+  const posts = await fileList(dirname)
 
   await posts.forEach(async post => {
     const result = await models.Post.create(post.markdown)
