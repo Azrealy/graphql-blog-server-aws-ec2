@@ -1,11 +1,21 @@
 const post = (sequelize, DataTypes) => {
     const Post = sequelize.define('post', {
+      filename: {
+        type: DataTypes.STRING,
+        unique: true,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: 'Post markdown file name can no be empty.',
+          }
+        }
+      },
       title: {
         type: DataTypes.STRING,
         validate: {
           notEmpty: {
             args: true,
-            msg: 'Post title can not be empty',
+            msg: 'Post title can not be empty.',
           }
         }
       },

@@ -30,6 +30,7 @@ const storeMarkdown = (dirPath, filename, tagsHelper) => {
     var lineCounter = 0;
     var tagIds = [];
     var markdown = {
+      filename: filename.split(".")[0],
       title: "",
       description: "",
       image: "",

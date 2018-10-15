@@ -45,17 +45,18 @@ export default {
             }
 
         },
-        post: async (parent, { id }, { models }) => {
-            return await models.Post.findById(id);
+        post: async (parent, { filename }, { models }) => {
+            return await models.Post.findOne({ where: {filename: filename}});
         }
     },
 
     Mutation: {
         createPost: combineResolvers(
             isAdmin,
-            async (parent, { title, description, image, content, tags }, { models } ) => {
+            async (parent, { filename, title, description, image, content, tags }, { models } ) => {
                 const date = new Date()
                 const post = await models.Post.create({
+                    filename: filename,
                     title: title,
                     description: description,
                     image: image,
@@ -76,10 +77,11 @@ export default {
 
         updatePost: combineResolvers(
             isAdmin,
-            async (parent, { id, title, description, image, content, tags}, { models }) => {
+            async (parent, { id, filename, title, description, image, content, tags}, { models }) => {
                 const post = await models.Post.findById(id);
     
-                await post.update({ 
+                await post.update({
+                    filename,
                     title,
                     description,
                     image,

@@ -6,11 +6,12 @@ export default gql`
 
     extend type Query {
         posts(forward: Boolean, cursor: String, limit: Int): PostConnection!
-        post(id: ID!): Post!
+        post(filename: String!): Post!
     }
 
     extend type Mutation {
         createPost(
+            filename: String!,
             title: String!,
             description: String!,
             image: String!,
@@ -22,6 +23,7 @@ export default gql`
         ): Boolean!
         updatePost(
             id: ID!,
+            filename: String!,
             title: String!,
             description: String!,
             image: String!,
@@ -44,6 +46,7 @@ export default gql`
 
     type Post {
         id: ID!
+        filename: String!
         title: String!
         description: String!
         image: String!
