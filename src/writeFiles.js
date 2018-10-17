@@ -1,5 +1,5 @@
-import models from "./models";
-import fs, { writeFile } from "fs";
+import models from './models';
+import fs from "fs";
 import path from "path";
 import chalk from "chalk";
 

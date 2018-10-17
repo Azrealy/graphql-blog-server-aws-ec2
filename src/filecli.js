@@ -1,4 +1,4 @@
-import models from "./models";
+import models, { sequelize } from "./models";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import figlet from "figlet";
@@ -27,8 +27,8 @@ const askQuestions = () => {
     {
       type: "list",
       name: "OPERATION",
-      message: "Write file from database or read file to database.",
-      choices: ["write", "read"],
+      message: "Write file from database or store file to database.",
+      choices: ["write", "store"],
       filter: function (val) {
         return val;
       }
@@ -49,11 +49,14 @@ const run = async () => {
     if (OPERATION === 'write') {
       await writeFiles(DIRNAME);
     } else {
-      const posts = await readFiles(DIRNAME)
-      await posts.forEach(async post => {
-        const result = await models.Post.create(post.markdown)
-        await result.setTags(post.tagIds)
-      })
+      const {posts, tags} = await readFiles(DIRNAME)
+      sequelize.sync({ force: true }).then(async () => {
+        await tags.forEach(async tag => await models.Tag.create(tag));
+        await posts.forEach(async post => {
+          const result = await models.Post.create(post.markdown)
+          await result.setTags(post.tagIds)
+        })
+      });
     }
 
   }

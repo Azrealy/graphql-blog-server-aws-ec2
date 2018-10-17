@@ -74,7 +74,7 @@ sequelize.sync({ force: isTest || isProduction }).then(async () => {
   if (isTest) {
     await createPosts('blogs');
     await createUsers();
-    console.log('Default user been create...')
+    console.log('Test model has been set...')
   }
 
   if (isProduction) {
@@ -89,7 +89,8 @@ sequelize.sync({ force: isTest || isProduction }).then(async () => {
 
 const createPosts = async (dirname) => {
 
-  const posts = await readFiles(dirname)
+  const {tags, posts} = await readFiles(dirname)
+  await tags.forEach(async tag => await models.Tag.create(tag));
 
   await posts.forEach(async post => {
     const result = await models.Post.create(post.markdown)

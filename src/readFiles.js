@@ -1,4 +1,3 @@
-import models from "./models";
 import TagsHelper from "./tagsHelper";
 
 import readline from "readline";
@@ -78,8 +77,7 @@ const readFiles = (dirName) => {
         dirPath,
         tagsHelper)
       const tags = tagsHelper.tags;
-      await tags.forEach(async tag => await models.Tag.create(tag));
-      resolve(posts);
+      resolve({posts, tags});
     });
   });
 }
