@@ -1,5 +1,5 @@
 ---
-title: Learning `tornado` coroutine mechanism through source code
+title: Learning tornado coroutine mechanism through source code
 description: This post will focus on the dataflow and mechanism of `tornado` coroutine through debug from the source code.
 tags: Python, English, Tornado
 image: https://cdn.stocksnap.io/img-thumbs/960w/6FOTSJ06WB.jpg

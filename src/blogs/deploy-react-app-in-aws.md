@@ -2,7 +2,7 @@
 title: Deploy react app as static page in the AWS s3
 description: Introduce how to deploy react-app as static page in the AWS s3.
 tags: Nodejs, English, Deploy
-image: https://cdn.stocksnap.io/img-thumbs/960w/YQ5HTMOKU3.jpg
+image: https://cdn.stocksnap.io/img-thumbs/960w/IFZYRGBZZS.jpg
 ---
 # Deploy this react app as static page in the AWS s3.
 

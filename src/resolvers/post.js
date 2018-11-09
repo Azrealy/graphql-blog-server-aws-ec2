@@ -41,12 +41,21 @@ export default {
                     hasNextPage: hasNextPage,
                     startCursor: edges[0].createdAt,
                     endCursor: edges[edges.length - 1].createdAt,
+                    count: await models.Post.count()
                 }
             }
 
         },
-        post: async (parent, { filename }, { models }) => {
-            return await models.Post.findOne({ where: {filename: filename}});
+        post: async (parent, { filename, id }, { models }) => {
+            if (filename) {
+                return await models.Post.findOne({ where: {filename: filename}});
+            } 
+            if (id) {
+                return await models.Post.findById(id)
+            } else {
+                return null
+            }
+            
         }
     },
 

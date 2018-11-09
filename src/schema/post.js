@@ -6,7 +6,7 @@ export default gql`
 
     extend type Query {
         posts(forward: Boolean, cursor: String, limit: Int): PostConnection!
-        post(filename: String!): Post!
+        post(filename: String, id: ID): Post!
     }
 
     extend type Mutation {
@@ -42,6 +42,7 @@ export default gql`
         hasNextPage: Boolean!
         startCursor: String!
         endCursor: String!
+        count: Int!
     }
 
     type Post {
