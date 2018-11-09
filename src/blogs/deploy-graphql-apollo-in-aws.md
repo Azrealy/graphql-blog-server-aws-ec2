@@ -1,5 +1,5 @@
 ---
-title: Deploy graphql apollo server at aws.
+title: Deploy graphql apollo server at aws
 description: Introduce how to deploy apollo server at aws use EC2 instance.
 tags: Nodejs, English, Deploy
 image: https://cdn.stocksnap.io/img-thumbs/960w/SHPHVPLC7T.jpg

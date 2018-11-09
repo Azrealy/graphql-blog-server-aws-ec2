@@ -1,5 +1,5 @@
 ---
-title: React component pattern.
+title: React component pattern
 description: This tutorial is to introduce some react component pattern which used a lot in our project code. And show the use case of the different react component pattern.
 tags: React, English, Javascript
 image: https://cdn.stocksnap.io/img-thumbs/960w/58W79YWLRL.jpg

@@ -1,5 +1,5 @@
 ---
-title: Minimal Node.js with babel setup.
+title: Minimal Node.js with babel setup
 description: Initial minimal Node.js with babel setup.
 tags: Webpack, English, Nodejs
 image: https://cdn.stocksnap.io/img-thumbs/960w/Y01VDYAX63.jpg

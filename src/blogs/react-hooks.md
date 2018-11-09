@@ -1,5 +1,5 @@
 ---
-title: Learning React Hook.
+title: Learning React Hook
 description: Take at a glance of this new feature of React in v16.7.0-alpha, which can be used to function component to setup state. 
 tags: React, English, Javascript
 image: https://cdn.stocksnap.io/img-thumbs/960w/8V46UZCS0V.jpg
