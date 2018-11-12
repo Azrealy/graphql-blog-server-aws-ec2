@@ -39,4 +39,13 @@ const writeFiles = async (dirname) => {
   })    
 }
 
+export const writeFile = async (dirname, filename) => {
+  const dirpath = path.join(__dirname, dirname);
+  if (!fs.existsSync(dirpath)) {
+    fs.mkdirSync(dirpath);
+  }
+  const post = await models.Post.findOne({ where: {filename: filename}});
+  await writeFileAsync(dirpath, post)
+}
+
 export default writeFiles;

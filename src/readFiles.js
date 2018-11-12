@@ -1,5 +1,4 @@
 import TagsHelper from "./tagsHelper";
-
 import readline from "readline";
 import path from "path";
 import fs from "fs";
@@ -80,6 +79,20 @@ const readFiles = (dirName) => {
       resolve({posts, tags});
     });
   });
+}
+
+export const readFile = (dirName, fileName) => {
+  const tagsHelper = new TagsHelper();
+  const dirPath = path.join(__dirname, dirName);
+  return new Promise(async (resolve, reject) => {
+    const post = await storeMarkdown(
+      dirPath,
+      fileName,
+      tagsHelper
+    )
+    const tags = tagsHelper.tags;
+    resolve({ post, tags })
+  })
 }
 
 export default readFiles;
