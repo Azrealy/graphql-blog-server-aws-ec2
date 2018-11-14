@@ -57,7 +57,7 @@ Make sure you have aws account, then in your `Console Home Page` chick the `EC2`
 
 6. **Review Instance Launch** Chick the `Launch` button then you will see a window popup. Choice the `Create a new key pair` and type in a name or use the exist key pair for launch thi instance. Just make sure you have the key pair correctly at your localhost.
 
-## Set up ssh connection
+## Connect to your instance
 
 On your local machine, go to your root directory, store the `key.pem` file to the directory of `~/.ssh/`.
 
