@@ -2,7 +2,7 @@
 title: Longest Palindromic Substring
 description: Using python implement Brute Force, Dynamic Programming and Expand Around Center solution to solve the Longest Palindromic Substring problem.
 tags: Algorithm, English, Python
-image: https://cdn.stocksnap.io/img-thumbs/960w/Y01VDYAX63.jpg
+image: https://cdn.stocksnap.io/img-thumbs/960w/AOGJEO6SXB.jpg
 ---
 # Longest Palindromic Substring
 
@@ -44,17 +44,11 @@ Space complexity : $O(1)$. Because the extra memory space just base on `max_stri
 # The Dynamic Programming
 
 To improve the Brute force solution, we first think about we can avoid the unnecessary re-computation like `string[i: i+1]` of `string[i: i+2] and string[1] == string[i+1]`. Then we can use the DP to separate our problem into some sub-problem. We define $P(i, j)$ as following:
-$$\begin{equation}
-  P(i, j)=\begin{cases}
-    1, & \text{if $S_i..S_j$ is a palindrome}\\
-    0, & \text{otherwise}.
-  \end{cases}
-\end{equation}$$
-Therefore, the problem $P(i, j)$ is palindrome can be derived from $P(i + 1, j - 1)$ and $S_i == S_j$ is true.
+$P(i, j)= 1$, if $S_i$..$S_j$ is a palindrome
+Therefore, the problem $P(i, j)$ is palindrome can be derived from $P(i+1, j-1)$ and $S_i$==$S_j$ is true.
 
 Finally in the bottom of the base cases are:
-$$P(i, i) = 1$$
-$$P(i, i+1)=\text{1 and } S_i == S_{i+1}$$
+$P(i, i) = 1$, $P(i, i+1)= 1$, and $S_i$==$S_{i+1}$
 
 Then our python code can be like:
 ```python
@@ -83,7 +77,7 @@ def dp_longest_palindrome(s):
 ```
 Complexity Analysis:
 * Time complexity: $O(n^2)$.
-* Space complexity: $O(n^x)$. Open a $O(n^2)$ table to memorize the sub palindrome.
+* Space complexity: $O(n^2)$. Open a $O(n^2)$ table to memorize the sub palindrome.
 
 # Expand Around Center
 
