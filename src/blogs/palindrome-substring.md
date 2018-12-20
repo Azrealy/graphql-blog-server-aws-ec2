@@ -10,7 +10,7 @@ Using python implement Brute Force, Dynamic Programming and Expand Around Center
 
 # Problem
 
-Given s string `s`, find the longest palindromic substring in `s`, You may assume that the maximum length of `s` is 1000.
+Given a string `s`, find the longest palindromic substring in `s`, You may assume that the maximum length of `s` is 1000.
 
 ### Example1:
 ```python
